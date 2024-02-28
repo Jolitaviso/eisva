@@ -32,7 +32,14 @@
     <main>{% block content %}{% endblock content %}</main>
     <footer>
         {% block footer %}{% endblock footer %}
-        <p>&copy; 2024 <a href="https://www.dainos.com/E/eisva_mudu_abudu.htm" target="_blank">EISVA</a></p>
+        <p style="text-align: center; display: flex; justify-content: center; align-items: center;">
+            &copy; 2024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a style="font-size: larger; margin-left: auto;" href="https://www.instagram.com/jolitaviso_/" target="_blank">{%trans "susipažinkime"|capfirst %}</a>
+            <a style="margin-left: auto;" href="https://www.instagram.com/jolitaviso_/" target="_blank">
+                <img class="icon" src="{% static "img/instagram.png" %}"></a>
+            <a href="https://www.facebook.com/jolitaviso/" target="_blank">
+                <img class="icon" src="{% static "img/facebook.png" %}"></a>
+        </p>
     </footer>
 </body>
 </html>

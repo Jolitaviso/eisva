@@ -63,21 +63,21 @@ main {
 }
 
 a {
-    color: #004488;
+    color: black;
     text-decoration: none;
     font-weight: bold;
     font-style: italic;
 }
 
 a:hover {
-    color: #0055cc;
+    color: #00f2fe;
 }
 h1, h2, h3, h4, h5, h6 {
-    background-color: radial-gradient(circle, #fc5c7d, #00f2fe);
+    background: linear-gradient(to right, #fc5c7d, #4facfe);
     border-bottom: 1px solid #888888;
     padding: 0.5rem;
     margin: 1rem 0;
-    color: #ffa468
+    color: #00f2fe
 }
 
 p, main ul {
@@ -103,15 +103,15 @@ h4:first-child, h5:first-child, h6:first-child {
 /*Apačia*/
 
 footer {
-    background: radial-gradient(circle, #fc5c7d, #00f2fe);
+    background: linear-gradient(to right, #fc5c7d, #4facfe);  /*background: radial-gradient(circle, #fc5c7d, #00f2fe);*/
 }
 
 footer p {
-    color: #cccccc;
+    color: black;
 }
 
 footer a {
-    color: #66aaff;
+    color: #00f2fe;   /*#66aaff; graži mėlyna spalva*/
 }
 
 footer a:hover {
