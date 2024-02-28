@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html>{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Eisva mudu abudu{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
         <span class="logo">
-            <span class="eisva">Eisva</span>
+            <span class="eisva">Eisva</span><br>
             <span class="mudu-abudu">Mudu abudu</span>
         </span>
         <ul>
@@ -17,5 +18,9 @@
         </ul>
     </header>
     <main>{% block content %}{% endblock content %}</main>
+    <footer>
+        {% block footer %}{% endblock footer %}
+        <p>&copy; 2024 <a href="https://www.dainos.com/E/eisva_mudu_abudu.htm" target="_blank">EISVA</a></p>
+    </footer>
 </body>
 </html>

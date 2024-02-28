@@ -1,10 +1,26 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 {% block content %}
-    <h1>Information about Eisva mudu abudu</h1>
-    <p>Users: {{ users_count }}</p>
-    <p>Blogs: {{ blogs_count }}</p>
-    <p>Communication: {{ communications_count }}</p>
-    <p>Comment: {{ commnets_count }}</p>
-
-
+<h2>home</h2>
+<ul class="home">
+    {% for metric in home %}
+    <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
+        <h3>{{ metric.0 }}</h3>
+        <span class="stat">{{ metric.1 }}</span>
+    {% if metric.2 %}</a>{% endif %}</li>
+    {% endfor %}
+</ul>
+<h2>communication</h2>
+<ul class="home">
+    {% for metric in communication%}
+    <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
+        <h3>{{ metric.0 }}</h3>
+        <span class="stat">{{ metric.1 }}</span>
+    {% if metric.2 %}</a>{% endif %}</li>
+    {% empty %}
+    <li>
+        <h3>login required</h3>
+        <span class="stat">nothing here</span>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock content %}

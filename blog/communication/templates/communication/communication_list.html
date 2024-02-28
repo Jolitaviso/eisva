@@ -1,8 +1,14 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 {% block title %}{{ block.super }} list{% endblock title %}
 {% block content %}
 <h1>Communication topic</h1>
+<ul>
 {% for communication in communication_list %}
-    <p>{{ communication }}</p>
+<li>
+<a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
+</li>
+{% empty %}
+<li>No Communication Found</li>
 {% endfor %}
+</ul>
 {% endblock content %}
