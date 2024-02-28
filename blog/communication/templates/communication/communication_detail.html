@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load static %}{% load i18n %}
+{% extends "base.html" %}{% load static i18n %}
 {% block title %}{{ block.super }} | {{ communication }}{% endblock title %}
 {% block content %}
 <p>{{ communication.owner }} / {{ communication.blog }}</p>
@@ -8,4 +8,5 @@
         {% trans "updated" %}: {{ communication.updated_at }}
     {% endif %}
 </p>
+<img src="{% static "img/a.jpg" %}" width="377" height="377">
 {% endblock content %}

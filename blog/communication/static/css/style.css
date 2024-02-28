@@ -159,3 +159,19 @@ header form select {
     background-color: #ffd2b4;
     
 }
+
+div.nice {
+    background-image: url('/static/img/a.jpg');
+    background-size: cover; /* gali būti ir toks - contain*/
+    display: inline-block;
+    border: 2px solid #ffcc00;
+    border-radius: 1rem;
+    margin: 1rem;
+}
+
+div.fog {
+    background-color: #ffffff9f;
+    display: inline-block;
+    padding: 2rem;
+    border-radius: 1rem;
+}
