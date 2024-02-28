@@ -8,7 +8,7 @@ class BlogAdmin(admin.ModelAdmin):
     list_display_links = ['id', 'name']
     list_filter = ['owner', 'created_at']
     search_fields = ['name', 'owner']
-    readonly_fields = ['updated_at']
+    readonly_fields = ['created_at', 'updated_at']
     fieldsets = (
         (None, {
             'fields': (
