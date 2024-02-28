@@ -1,5 +1,5 @@
-{% extends "base.html" %}{% load static %}{% load static i18n %}
-{% block title %}{{ block.super }} list{% endblock title %}
+{% extends "base.html" %}{% load static %}{% load i18n %}
+{% block title %}{{ block.super }} {% trans "list" %}{% endblock title %}
 {% block content %}
 <h1>{% trans "communication topic"|capfirst %}</h1>
 <ul>
