@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Eisva mudu abudu{% endblock title %}</title>
+</head>
+<body>
+    <header>
+        <span class="logo">
+            <span class="eisva">Eisva</span>
+            <span class="mudu-abudu">Mudu abudu</span>
+        </span>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'communication_list' %}">Communication</a></li>
+        </ul>
+    </header>
+    <main>{% block content %}{% endblock content %}</main>
+</body>
+</html>

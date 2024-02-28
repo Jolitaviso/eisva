@@ -1,3 +1,17 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from . import models
 
-# Create your views here.
+def index(request: HttpRequest) -> HttpResponse:
+    context = {
+        'blogs_count': models.Blog.objects.count(),
+        'comunnications_count': models.Communication.objects.count(),
+        'users_count': models.get_user_model().objects.count(),
+        'comments_count': models.Comment.objects.count(),
+    }
+    return render(request, 'communication/index.html/', context)
+
+def communication_list(request: HttpRequest) -> HttpResponse:
+    return render(request, 'communication/communication_list.html', {
+        'communication_list': models.Communication.objects.all(),
+    })

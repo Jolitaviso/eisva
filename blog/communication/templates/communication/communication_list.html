@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ block.super }} list{% endblock title %}
+{% block content %}
+<h1>Communication topic</h1>
+{% for communication in communication_list %}
+    <p>{{ communication }}</p>
+{% endfor %}
+{% endblock content %}
