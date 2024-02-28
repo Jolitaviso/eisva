@@ -1,6 +1,6 @@
-{% extends "base.html" %}{% load static %}
+{% extends "base.html" %}{% load static %}{% load static i18n %}
 {% block content %}
-<h2>home</h2>
+<h2>{% trans "home"|capfirst %}</h2>
 <ul class="home">
     {% for metric in home %}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
@@ -9,7 +9,7 @@
     {% if metric.2 %}</a>{% endif %}</li>
     {% endfor %}
 </ul>
-<h2>communication</h2>
+<h2>{% trans "communication"|capfirst %}</h2>
 <ul class="home">
     {% for metric in communication%}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
@@ -18,8 +18,8 @@
     {% if metric.2 %}</a>{% endif %}</li>
     {% empty %}
     <li>
-        <h3>login required</h3>
-        <span class="stat">nothing here</span>
+        <h3>{% trans "login required"|capfirst %}</h3>
+        <span class="stat">{% trans "nothing here"|capfirst %}</span>
     </li>
     {% endfor %}
 </ul>

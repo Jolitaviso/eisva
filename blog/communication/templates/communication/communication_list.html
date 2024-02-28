@@ -1,14 +1,14 @@
-{% extends "base.html" %}{% load static %}
+{% extends "base.html" %}{% load static %}{% load static i18n %}
 {% block title %}{{ block.super }} list{% endblock title %}
 {% block content %}
-<h1>Communication topic</h1>
+<h1>{% trans "communication topic"|capfirst %}</h1>
 <ul>
 {% for communication in communication_list %}
 <li>
 <a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
 </li>
 {% empty %}
-<li>No Communication Found</li>
+<li>{% trans "no communication found"|title %}</li>
 {% endfor %}
 </ul>
 {% endblock content %}

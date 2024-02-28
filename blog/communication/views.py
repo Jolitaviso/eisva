@@ -1,14 +1,15 @@
 from django.http import HttpRequest, HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
 from . import models
 
 def index(request: HttpRequest) -> HttpResponse:
     context = {
-        'blogs_count': models.Blog.objects.count(),
-        'comunnications_count': models.Communication.objects.count(),
-        'users_count': models.get_user_model().objects.count(),
-        'comments_count': models.Comment.objects.count(),
+        'blogs_count'.capitalize: models.Blog.objects.count(),
+        'comunnications_count'.capitalize: models.Communication.objects.count(),
+        'users_count'.capitalize: models.get_user_model().objects.count(),
+        'comments_count'.capitalize: models.Comment.objects.count(),
     }
     return render(request, 'communication/index.html/', context)
 
