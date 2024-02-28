@@ -46,13 +46,6 @@ class Communication(models.Model):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
 
-    comments = models.ManyToManyField(
-        'Comment',
-        verbose_name=_("comments"),
-        related_name='communications',
-        blank=True,
-    )
-
     def __str__(self):
         return self.name
 
@@ -74,6 +67,13 @@ class Comment(models.Model):
         on_delete=models.CASCADE, 
         verbose_name=_("owner"), 
         related_name='comments',
+    )
+    communication = models.ForeignKey(
+        Communication,
+        on_delete=models.CASCADE,
+        verbose_name=_("communication"),
+        related_name='comments',
+        null=True,
     )
 
     def __str__(self):

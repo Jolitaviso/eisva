@@ -4,14 +4,14 @@ from . import models
 
 
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'total_communications', 'owner', 'created_at', 'recent_communications']
+    list_display = ['id', 'name', 'owner', 'created_at', 'recent_communications']
     list_display_links = ['id', 'name']
     list_filter = ['owner', 'created_at']
     search_fields = ['name', 'owner']
     readonly_fields = ['updated_at']
-    fields = (
+    fieldsets = (
         (None, {
-            "fields": (
+            'fields': (
                 'name', 'owner',
             ),
         }),
@@ -20,12 +20,6 @@ class BlogAdmin(admin.ModelAdmin):
         }),
     )
  
-    autocomplete_fields = ['owner']
-    
-    def total_communications(self, obj: models.Blog):
-        return obj.communications.count()
-    total_communications.short_description = _('total communications')
-
     def recent_communications(self, obj: models.Blog):
         return "; ".join(obj.communications.order_by('-created_at').values_list('name', flat=True)[:3])
     recent_communications.short_description = _('recent communications')
@@ -37,7 +31,6 @@ class CommunicationAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description', 'blog__name', 'owner__last_name', 'owner__username']
     list_editable = ['owner', 'blog']
     readonly_fields = ['id', 'created_at', 'updated_at']
-    autocomplete_fields = ['blog', 'owner']
     fieldsets = (
         (_("general").title(), {
             "fields": (
@@ -83,6 +76,6 @@ class CommentAdmin(admin.ModelAdmin):
     )
     
     
-admin.site.register(models.Blog)
-admin.site.register(models.Communication)
-admin.site.register(models.Comment)
+admin.site.register(models.Blog, BlogAdmin)
+admin.site.register(models.Communication, CommunicationAdmin)
+admin.site.register(models.Comment, CommentAdmin)
