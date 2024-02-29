@@ -12,12 +12,13 @@
             <span class="eisva">Eisva</span><br>
             <span class="mudu-abudu">Mudu abudu</span>
         </span>
-        <ul>
+        <ul class="nav">
             <li><a href="{% url 'index' %}">{% trans "home"|capfirst %}</a></li>
             <li><a href="{% url 'communication_list' %}">{% trans "communication"|capfirst %}</a></li>
+            <li><a href="{% url 'blog_list' %}">{% trans "blog"|capfirst %}</a></li>
         </ul>
         <span class="spacer"></span>
-        <ul class="nav nav-user">
+        <ul class="nav">
             {% if user.is_authenticated %}
                 <li><a href="{% url 'user_detail_current' %}">{{ user }}</a></li>
                 {% if user.is_superuser or user.is_staff %}

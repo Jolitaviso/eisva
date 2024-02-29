@@ -1,0 +1,26 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{{ block.super }} {% trans "blogs" %}{% endblock title %}
+{% block content %}
+<h1>{% trans "blogs"|capfirst %}</h1>
+<div class="toolbar">
+    <a class="button" href="{% url "blog_create" %}">{% trans "create new"|title %}</a>
+    <form method="get" action="{{ request.path }}">
+        <select name="owner" onchange="this.form.submit();">
+            <option value="">{% trans "filter by owner"|capfirst %}</option>
+            {% for user in user_list %}
+                <option value="{{ user.username }}" {% if user.username == request.GET.owner %}selected{% endif %}>{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+<ul>
+{% for blog in blog_list %}
+    <li>
+        <a href="{% url "blog_detail" blog.pk %}">{{ blog.name }}</a>
+        ({{ blog.communications.count }})
+    </li>
+{% empty %}
+    <li>{% trans "no blogs found"|title %}</li>
+{% endfor %}
+</ul>
+{% endblock content %}
