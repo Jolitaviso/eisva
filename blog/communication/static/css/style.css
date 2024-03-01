@@ -34,7 +34,7 @@ header ul.nav {
 }
 
 header ul.nav li a, header ul.nav li form button {
-    background-color: #ffd2b4;
+    background-color: #ffffff9f;
     display: block;
     margin: 0;
     padding: 0.5rem;
@@ -77,12 +77,13 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid #888888;
     padding: 0.5rem;
     margin: 1rem 0;
-    color: #00f2fe
+    color: black;
 }
 
 p, main ul {
     padding: 0 0.5rem;
     margin: 1rem 0;
+    background: none;
 }
 
 main ul li {
@@ -199,8 +200,7 @@ div.fog {
 button, .button {
    /* border: 1px solid #666666;
     font-size: 120%;*/
-    background-color: #ffd2b4;
-    display: block;
+    background-color: #ffffff9f;
     margin: 0;
     padding: 0.5rem;
     border: none;

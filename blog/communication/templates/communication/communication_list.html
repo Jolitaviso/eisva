@@ -14,10 +14,10 @@
             </option>
                 {% endfor %}
         </select>
-        <select name="project_pk" onchange="this.form.submit();">
-            <option value="">{% trans "filter by project"|capfirst %}</option>
-            {% for project in project_list %}
-                <option value="{{ project.pk }}" {% if project.pk|slugify == request.GET.project_pk %}selected{% endif %}>{{ project.name }}</option>
+        <select name="blog_pk" onchange="this.form.submit();">
+            <option value="">{% trans "filter by blog name"|capfirst %}</option>
+            {% for blog in blog_list %}
+                <option value="{{ blog.pk }}" {% if blog.pk|slugify == request.GET.blog_pk %}selected{% endif %}>{{ blog.name }}</option>
             {% endfor %}
         </select>
         <input type="text" name="search_name" value="{{ request.GET.search_name }}" placeholder="{% trans 'search by name' %}...">
@@ -32,6 +32,7 @@
 {% for communication in communication_list %}
 <li>
 <a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
+<span>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></span>  
 <span style="float:right;">{{ communication.description }}</span>
 </li>
 {% empty %}

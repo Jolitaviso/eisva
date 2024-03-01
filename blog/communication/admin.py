@@ -7,13 +7,13 @@ class BlogAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'owner', 'created_at', 'recent_communications']
     list_display_links = ['id', 'name']
     list_filter = ['owner', 'created_at']
-    search_fields = ['name', 'owner']
+    search_fields = ['name', 'owner' 'description', 'owner__last_name', 'owner__username']
     readonly_fields = ['created_at', 'updated_at']
     autocomplete_fields = ['owner']
     fieldsets = (
         (None, {
             'fields': (
-                'name', 'owner', 'youtube_video',
+                'name', 'owner', 'youtube_video','description',
             ),
         }),
         (_('temporal tracking').title(), {
@@ -80,6 +80,12 @@ class CommentAdmin(admin.ModelAdmin):
         }),
     )
     
+class BlogLikeAdmin(admin.ModelAdmin):
+    list_display = ['blog', 'user', 'like']
+    
+class CommunicationLikeAdmin(admin.ModelAdmin):
+    list_display = ['communication', 'user', 'like']    
+
     
 admin.site.register(models.Blog, BlogAdmin)
 admin.site.register(models.Communication, CommunicationAdmin)

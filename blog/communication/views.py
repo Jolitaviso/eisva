@@ -31,13 +31,24 @@ class BlogListView(generic.ListView):
 class BlogDetailView(generic.DetailView):
     model = models.Blog
     template_name = 'communication/blog_detail.html'
-    
+    def get_context_data(self, **kwargs):  #nežinau ar gerai nuo šitos eilutės
+        context = super().get_context_data(**kwargs)
+        blog = self.get_object()
+        
+        # Patikriname, ar naudotojas yra superuser arba blogo savininkas
+        if not self.request.user.is_superuser and self.request.user != blog.owner:
+            raise get_object_or_404  # Grąžiname 404 klaidą, jei naudotojas neturi teisės matyti blogo
+        
+        # Jei naudotojas nėra superuser arba blogo savininkas, pridedame žymą, kad blogas nepublikuotas
+        context['not_published'] = True
+        return context
     
 class BlogCreateView(LoginRequiredMixin, generic.CreateView):
     model = models.Blog
     template_name = 'communication/blog_create.html'
-    fields = ('name', 'description' )
-
+    fields = ('name', 'owner', 'description', 'youtube_video' )
+    autocomplete_fields = ['owner']
+    
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog created successfully').capitalize())
         return reverse('blog_list')
@@ -46,6 +57,7 @@ class BlogCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
     
+
 class BlogUpdateView(
         LoginRequiredMixin, 
         UserPassesTestMixin, 
@@ -53,7 +65,7 @@ class BlogUpdateView(
     ):
     model = models.Blog
     template_name = 'communication/blog_update.html'
-    fields = ('name', 'description')
+    fields = ('name', 'owner', 'description', 'youtube_video')
 
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog updated successfully').capitalize())
@@ -189,3 +201,28 @@ def communication_delete(request: HttpRequest, pk: int) -> HttpResponse:
             return redirect(request.GET.get('next'))
         return redirect('communication_list')
     return render(request, "communication/communication_delete.html", {'communication': communication, 'object': communication})
+
+
+@login_required
+def blog_like(request: HttpRequest, pk: int) -> HttpResponse:
+    blog = get_object_or_404(models.Blog, pk=pk)
+    like = models.BlogLike.objects.filter(blog=blog, user=request.user).first()
+    if not like:
+        models.BlogLike.objects.create(blog=blog, user=request.user)
+    else:
+        like.delete()
+    if request.GET.get('next'):
+        return redirect(request.GET.get('next'))
+    return redirect('blog_list')
+
+@login_required
+def communication_like(request: HttpRequest, pk: int) -> HttpResponse:
+    communication = get_object_or_404(models.Communication, pk=pk)
+    like = models.CommunicationLike.objects.filter(communication=communication, user=request.user).first()
+    if not like:
+        models.CommunicationLike.objects.create(communication=communication, user=request.user)
+    else:
+        like.delete()
+    if request.GET.get('next'):
+        return redirect(request.GET.get('next'))
+    return redirect('communication_list')

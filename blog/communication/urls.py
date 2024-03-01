@@ -12,5 +12,7 @@ urlpatterns = [
     path('communication/<int:pk>/', views.communication_detail, name='communication_detail'),
     path('communications/create/', views.communication_create, name='communication_create'),
     path('communication/<int:pk>/edit/', views.communication_update, name='communication_update'),
-    path('communication/<int:pk>/delete/', views.communication_delete, name='communication_delete'),    
+    path('communication/<int:pk>/delete/', views.communication_delete, name='communication_delete'),
+    path('blog/<int:pk>/like/', views.blog_like, name='blog_like'),
+    path('communication/<int:pk>/like/', views.communication_like, name='communication_like'),    
 ]

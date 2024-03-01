@@ -96,4 +96,50 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse("comment_detail", kwargs={"pk": self.pk})
     
+class BlogLike(models.Model):
+    blog = models.ForeignKey(
+        Blog, 
+        verbose_name=_("blog"), 
+        on_delete=models.CASCADE,
+        related_name='likes',
+    )
+    user = models.ForeignKey(
+        get_user_model(), 
+        verbose_name=_("user"), 
+        on_delete=models.CASCADE,
+        related_name='blog_likes',
+    )
     
+    class Meta:
+        verbose_name = _("blog like")
+        verbose_name_plural = _("blog likes")
+
+    def __str__(self):
+        return f"{self.blog} {self.user}"
+
+    def get_absolute_url(self):
+        return reverse("blog_like_detail", kwargs={"pk": self.pk})
+
+class CommunicationLike(models.Model):
+    communication = models.ForeignKey(
+        Communication, 
+        verbose_name=_("communication"), 
+        on_delete=models.CASCADE,
+        related_name='likes',
+    )
+    user = models.ForeignKey(
+        get_user_model(), 
+        verbose_name=_("user"), 
+        on_delete=models.CASCADE,
+        related_name='communication_likes',
+    )
+    
+    class Meta:
+        verbose_name = _("communication like")
+        verbose_name_plural = _("communication likes")
+
+    def __str__(self):
+        return f"{self.communication} {self.user}"
+
+    def get_absolute_url(self):
+        return reverse("communication_like_detail", kwargs={"pk": self.pk})
