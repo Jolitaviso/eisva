@@ -9,10 +9,11 @@ class BlogAdmin(admin.ModelAdmin):
     list_filter = ['owner', 'created_at']
     search_fields = ['name', 'owner']
     readonly_fields = ['created_at', 'updated_at']
+    autocomplete_fields = ['owner']
     fieldsets = (
         (None, {
             'fields': (
-                'name', 'owner',
+                'name', 'owner', 'youtube_video',
             ),
         }),
         (_('temporal tracking').title(), {
@@ -23,7 +24,8 @@ class BlogAdmin(admin.ModelAdmin):
     def recent_communications(self, obj: models.Blog):
         return "; ".join(obj.communications.order_by('-created_at').values_list('name', flat=True)[:3])
     recent_communications.short_description = _('recent communications')
-
+    
+    
 
 class CommunicationAdmin(admin.ModelAdmin):
     list_display = ['name', 'blog', 'owner', 'created_at']
@@ -31,16 +33,18 @@ class CommunicationAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description', 'blog__name', 'owner__last_name', 'owner__username']
     list_editable = ['owner', 'blog']
     readonly_fields = ['id', 'created_at', 'updated_at']
+    autocomplete_fields = ['owner']
     fieldsets = (
         (_("general").title(), {
             "fields": (
-                ('name'),
+                'name',
                 'description',
             ),
         }),
         (_("ownership").title(), {
             "fields": (
-                ('owner', 'blog'),
+                'owner',
+                 'blog',
             ),
         }),
         (_("temporal tracking").title(), {
@@ -56,6 +60,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter =  ['created_at', 'owner']
     search_fields = ['title', 'note', 'owner__last_name', 'owner__username']
     readonly_fields = ['id', 'created_at', 'updated_at']
+    autocomplete_fields = ['communication', 'owner']
     fieldsets = (
         (_("general").title(), {
             "fields": (

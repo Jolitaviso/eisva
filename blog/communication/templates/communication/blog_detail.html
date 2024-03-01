@@ -2,12 +2,35 @@
 {% block title %}{{ blog.name }} | {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>{{ blog.name }}</h1>
-{% if blog.owner == request.user %}
+{% if blog.owner == request.user or request.user.is_superuser %}
     <p>
         <a class="button" href="{% url "blog_update" blog.pk %}">{% trans "edit"|capfirst %}</a>
         <a class="button" href="{% url "blog_delete" blog.pk %}">{% trans "delete"|capfirst %}</a>
     </p>
 {% endif %}
 <p>{% trans "owner" %}: <a href="{% url "user_detail" blog.owner.username %}">{{ blog.owner }}</a></p>
+{% if blog.youtube_video %}
+<div class='tube'>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{blog.youtube_video}}" title="YouTube daydreamer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div>
+{% endif %}
+{% if blog.description %}
+<div class="user-content">{{ blog.description|safe }}</div>
+{% endif %}
 <p>{% trans "communications" %}: {{ blog.communications.count }}</p>
+<h2> {% trans "communications"|capfirst %} ({{ blog.communications.count }}) </h2>
+<ul>
+    <li class="list-table-header">
+        <span>{% trans "name"|capfirst %}</span>
+        <span style="float:right;">{% trans "description"|capfirst %}</span>
+    </li>
+{% for communication in blog.all %}
+<li>
+<a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
+<span style="float:right;">{{ communication.description}}</span>
+</li>
+{% empty %}
+<li>{% trans "no blogs found"|title %}</li>
+{% endfor %}
+</ul>
 {% endblock content %}

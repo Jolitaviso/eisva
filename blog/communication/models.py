@@ -15,14 +15,22 @@ class Blog(models.Model):
         verbose_name=_("owner"), 
         related_name='blogs',
     )
-
-    def __str__(self):
-        return self.name
+    youtube_video = models.CharField(
+        _('Youtube video'),
+        max_length=50, null=True,
+        blank=True,
+        help_text =_("from Youtube's video URL copy the part after 'https://www.youtube.com/watch?v='.")
+    )
 
     class Meta:
         verbose_name = _("blog")
         verbose_name_plural = _("blogs")
         ordering = ['name']
+        
+        
+    def __str__(self):
+        return self.name
+
 
     def get_absolute_url(self):
         return reverse("blog_detail", kwargs={"pk": self.pk})
