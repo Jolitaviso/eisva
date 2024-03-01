@@ -8,7 +8,7 @@ from django.views import generic
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from . import models
+from . import models, forms
 from datetime import datetime
 from typing import Any
 
@@ -87,16 +87,11 @@ def index(request: HttpRequest) -> HttpResponse:
     }
     return render(request, 'communication/index.html/', context)
 
-def communication_list(request: HttpRequest) -> HttpResponse:
+'''def communication_list(request: HttpRequest) -> HttpResponse:
     return render(request, 'communication/communication_list.html', {
         'communication_list': models.Communication.objects.all(),
-    })
-    
-def communication_detail(request: HttpRequest, pk:int) -> HttpResponse:
-    return render(request, 'communication/communication_detail.html', {
-        'communication': get_object_or_404(models.Communication, pk=pk)
-    })
-    
+    })'''
+      
 def communication_list(request: HttpRequest) -> HttpResponse:
     queryset = models.Communication.objects
     owner_username = request.GET.get('owner')
@@ -110,7 +105,7 @@ def communication_list(request: HttpRequest) -> HttpResponse:
         blogs = models.Blog.objects'''
     blog_pk = request.GET.get('blog_pk')
     if blog_pk:
-        blog = get_object_or_404(models.blog, pk=blog_pk)
+        blog = get_object_or_404(models.Blog, pk=blog_pk)
         queryset = queryset.filter(blog=blog)
     search_name = request.GET.get('search_name')
     if search_name:
@@ -121,3 +116,53 @@ def communication_list(request: HttpRequest) -> HttpResponse:
         'user_list': get_user_model().objects.all().order_by('username'),
     }
     return render(request, 'communication/communication_list.html', context)
+
+
+def communication_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    return render(request, 'communication/communication_detail.html', {
+        'communication': get_object_or_404(models.Communication, pk=pk),
+    })
+    
+    
+@login_required
+def communication_create(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = forms.CommunicationForm(request.POST)
+        if form.is_valid():
+            form.instance.owner = request.user
+            form.save()
+            messages.success(request, _("communication created successfully").capitalize())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('communication_list')
+    else:
+        form = forms.CommunicationForm()
+    form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
+    return render(request, 'communication/communication_create.html', {'form': form})
+
+@login_required
+def communication_update(request: HttpRequest, pk: int) -> HttpResponse:
+    communication = get_object_or_404(models.Communication, pk=pk, owner=request.user)
+    if request.method == "POST":
+        form = forms.CommunicationForm(request.POST, instance=communication)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("communication edited successfully").capitalize())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('communication_list')
+    else:
+        form = forms.CommunicationForm(instance=communication)
+    form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
+    return render(request, 'communication/communication_update.html', {'form': form})
+
+@login_required
+def communication_delete(request: HttpRequest, pk: int) -> HttpResponse:
+    communication = get_object_or_404(models.Communication, pk=pk, owner=request.user)
+    if request.method == "POST":
+        communication.delete()
+        messages.success(request, _("communication deleted successfully").capitalize())
+        if request.GET.get('next'):
+            return redirect(request.GET.get('next'))
+        return redirect('communication_list')
+    return render(request, "communication/communication_delete.html", {'communication': communication, 'object': communication})

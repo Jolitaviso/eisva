@@ -1,6 +1,16 @@
 {% extends "base.html" %}{% load static i18n %}
 {% block title %}{{ block.super }} | {{ communication }}{% endblock title %}
 {% block content %}
+<div class="toolbar">
+    {% if communication.owner == request.user %}
+        <a class="button" href="{% url "communication_update" communication.pk %}?next={{ request.GET.next|urlencode }}">
+            {% trans "edit"|capfirst %}</a>
+        <a class="button" href="{% url "communication_delete" communication.pk %}?next={{ request.GET.next|urlencode }}">
+            {% trans "delete"|capfirst %}</a>
+    {% endif %}
+    <a class="button" href="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "communication_list" %}{% endif %}">
+        {% trans "return"|capfirst %}</a>
+</div>
 <p>{{ communication.owner }} / {{ communication.blog }}</p>
 <p>{{ communication.description }}</p>
 <p>{% trans "created"|capfirst %}: {{ communication.created_at }}, 
