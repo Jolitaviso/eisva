@@ -1,17 +1,29 @@
 {% extends "base.html" %}{% load static i18n %}
 {% block content %}
-<h2>{% trans "home"|capfirst %}</h2>
+<h2>{% trans "common home"|capfirst %}</h2>
 <ul class="home">
-    {% for metric in home %}
+    {% for metric in common_home %}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
         <h3>{{ metric.0 }}</h3>
         <span class="stat">{{ metric.1 }}</span>
-    {% if metric.2 %}</a>{% endif %}</li>
+        {% if metric.2 %}</a>{% endif %}</li>
+    {% endfor %}
+</ul>
+<h2>{% trans "user home"|title %}</h2>
+<ul class="home">
+    {% for metric in user_home %}
+    <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
+        <h3>{{ metric.0 }}</h3>
+        <span class="stat">{{ metric.1 }}</span>
+        {% if metric.2 %}</a>{% endif %}</li>
+    {% empty %}
+    <li><h3>{% trans "login required" %}</h3>
+        <span class="stat">{% trans "nothing here" %}</span></li>
     {% endfor %}
 </ul>
 <h2>{% trans "communication"|capfirst %}</h2>
 <ul class="home">
-    {% for metric in communication%}
+    {% for metric in communication_home%}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
         <h3>{{ metric.0 }}</h3>
         <span class="stat">{{ metric.1 }}</span>

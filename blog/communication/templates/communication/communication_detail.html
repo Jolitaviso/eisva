@@ -12,6 +12,7 @@
         {% trans "return"|capfirst %}</a>
 </div>
 <p>{{ communication.owner }} / {{ communication.blog }}</p>
+<div class="user-content">{{ communicationdescription|safe }}</div>
 <p>{{ communication.description }}</p>
 <p>{% trans "created"|capfirst %}: {{ communication.created_at }}, 
     {% if communication.created_at != communication.updated_at %}

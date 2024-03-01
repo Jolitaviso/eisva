@@ -36,7 +36,7 @@ class BlogDetailView(generic.DetailView):
 class BlogCreateView(LoginRequiredMixin, generic.CreateView):
     model = models.Blog
     template_name = 'communication/blog_create.html'
-    fields = ('name', )
+    fields = ('name', 'description' )
 
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog created successfully').capitalize())
@@ -53,7 +53,7 @@ class BlogUpdateView(
     ):
     model = models.Blog
     template_name = 'communication/blog_update.html'
-    fields = ('name', )
+    fields = ('name', 'description')
 
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog updated successfully').capitalize())
@@ -79,19 +79,42 @@ class BlogDeleteView(
     
     
 def index(request: HttpRequest) -> HttpResponse:
+    communications = models.Communication.objects
+    common_home = [
+        (_('users').title(), get_user_model().objects.count()),
+        (
+            _('blogs').title(), 
+            models.Blog.objects.count(), 
+            reverse('blog_list'),
+        ),
+        (
+            _('communications').title(), 
+            communications.count(), 
+            reverse('communication_list'),
+        ),
+    ]
+    if request.user.is_authenticated:
+        user_communications = communications.filter(owner=request.user)
+        user_home = [
+            (
+                _('blogs').title(), 
+                models.Blog.objects.filter(owner=request.user).count(), 
+                reverse('blog_list') + f"?owner={request.user.username}",
+            ),
+            (
+                _('communications').title(), 
+                user_communications.count(),
+                reverse('communication_list') + f"?owner={request.user.username}",
+            ),
+        ]
+    else:
+        user_home = None
     context = {
-        'blogs_count'.capitalize: models.Blog.objects.count(),
-        'communnications_count'.capitalize: models.Communication.objects.count(),
-        'users_count'.capitalize: models.get_user_model().objects.count(),
-        'comments_count'.capitalize: models.Comment.objects.count(),
+        'common_home': common_home,
+        'user_home': user_home,
     }
-    return render(request, 'communication/index.html/', context)
+    return render(request, 'communication/index.html', context)
 
-'''def communication_list(request: HttpRequest) -> HttpResponse:
-    return render(request, 'communication/communication_list.html', {
-        'communication_list': models.Communication.objects.all(),
-    })'''
-      
 def communication_list(request: HttpRequest) -> HttpResponse:
     queryset = models.Communication.objects
     owner_username = request.GET.get('owner')

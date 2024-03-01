@@ -48,3 +48,8 @@ def user_update(request: HttpRequest) -> HttpResponse:
         'form_user': form_user,
         'form_profile': form_profile,
     })
+
+@login_required
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'user_profile/user_list.html', {'users': users})
