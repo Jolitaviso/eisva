@@ -26,17 +26,17 @@
 </div>
 <ul>
     <li class="list-table-header">
-        <span> {% trans "name"|capfirst %} </span>
-        <span style = "float:right;"> {% trans "description"|capfirst %}</span>
+        <span>{% trans "name"|capfirst %}</span>
+        <span style="float:right;">{% trans "description"|capfirst %}</span>
     </li>
 {% for communication in communication_list %}
-<li>
-<a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
-<span>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></span>  
-<span style="float:right;">{{ communication.description }}</span>
-</li>
+    <li>
+        <a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
+        <span>{% trans "owner" %}: <a href="{% url 'user_detail' communication.owner.username %}">{{ communication.owner }}</a></span>
+        <span style="float:right;">{{ communication.description}}</span>
+    </li>
 {% empty %}
-<li>{% trans "no communication found"|title %}</li>
+    <li>{% trans "no communication found"|title %}</li>
 {% endfor %}
 </ul>
 <div class ='nice'>

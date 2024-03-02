@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from . import models, forms
 from datetime import datetime
 from typing import Any
+from django.http import Http404
 
 class BlogListView(generic.ListView):
     model = models.Blog
@@ -31,16 +32,9 @@ class BlogListView(generic.ListView):
 class BlogDetailView(generic.DetailView):
     model = models.Blog
     template_name = 'communication/blog_detail.html'
-    def get_context_data(self, **kwargs):  #nežinau ar gerai nuo šitos eilutės
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]: 
         context = super().get_context_data(**kwargs)
-        blog = self.get_object()
-        
-        # Patikriname, ar naudotojas yra superuser arba blogo savininkas
-        if not self.request.user.is_superuser and self.request.user != blog.owner:
-            raise get_object_or_404  # Grąžiname 404 klaidą, jei naudotojas neturi teisės matyti blogo
-        
-        # Jei naudotojas nėra superuser arba blogo savininkas, pridedame žymą, kad blogas nepublikuotas
-        context['not_published'] = True
         return context
     
 class BlogCreateView(LoginRequiredMixin, generic.CreateView):
@@ -49,13 +43,14 @@ class BlogCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ('name', 'owner', 'description', 'youtube_video' )
     autocomplete_fields = ['owner']
     
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.instance.owner = self.request.user
+        return form
+
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog created successfully').capitalize())
         return reverse('blog_list')
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
     
 
 class BlogUpdateView(
@@ -124,6 +119,7 @@ def index(request: HttpRequest) -> HttpResponse:
     context = {
         'common_home': common_home,
         'user_home': user_home,
+        
     }
     return render(request, 'communication/index.html', context)
 

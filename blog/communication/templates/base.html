@@ -14,13 +14,12 @@
 <body>
     <header>
         <span class="logo">
-            <span class="eisva">Eisva</span><br>
-            <span class="mudu-abudu">Mudu abudu</span>
+            <span class="eisva">Eisva</span><br><span class="mudu-abudu">Mudu abudu</span>
         </span>
         <ul class="nav">
             <li><a href="{% url 'index' %}">{% trans "home"|capfirst %}</a></li>
-            <li><a href="{% url 'communication_list' %}">{% trans "communication"|capfirst %}</a></li>
             <li><a href="{% url 'blog_list' %}">{% trans "blog"|capfirst %}</a></li>
+            <li><a href="{% url 'communication_list' %}">{% trans "communication"|capfirst %}</a></li>
         </ul>
         <span class="spacer"></span>
         <ul class="nav">
@@ -48,6 +47,11 @@
             </select>
         </form>
     </header>
+    <div class="messages">
+        {% for message in messages %}
+            <p class="message message-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
     <main>{% block content %}{% endblock content %}</main>
     <footer>
         {% block footer %}{% endblock footer %}

@@ -22,17 +22,20 @@
     {% endfor %}
 </ul>
 <h2>{% trans "communication"|capfirst %}</h2>
-<ul class="home">
-    {% for metric in communication_home%}
-    <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
-        <h3>{{ metric.0 }}</h3>
-        <span class="stat">{{ metric.1 }}</span>
-    {% if metric.2 %}</a>{% endif %}</li>
-    {% empty %}
-    <li>
-        <h3>{% trans "login required"|capfirst %}</h3>
-        <span class="stat">{% trans "nothing here"|capfirst %}</span>
+<ul>
+    <li class="list-table-header">
+        <span> {% trans "name"|capfirst %} </span>
+        <span style = "float:right;"> {% trans "description"|capfirst %}</span>
     </li>
-    {% endfor %}
+{% for communication in communication_list %}
+<li>
+<a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
+<span>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></span>  
+<span style="float:right;">{{ communication.description }}</span>
+</li>
+{% empty %}
+<li>{% trans "no communication found"|title %}</li>
+{% endfor %}
 </ul>
 {% endblock content %}
+    

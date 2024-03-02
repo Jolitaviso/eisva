@@ -2,6 +2,7 @@
 {% block title %}{{ blog.name }} | {{ block.super }}{% endblock title %}
 {% block content %}
 <div style="text-align: left;"> <h1>{{ blog.name }}</h1>
+<div>{% trans "owner" %}: <a href="{% url "user_detail" blog.owner.username %}">{{ blog.owner }}</a></div>
 <div style="display: flex; align-items: right; justify-content: space-between; font-size: 30px;">
     <div>{% if request.user.is_authenticated %}
     <a href="{% url 'blog_like' blog.pk %}?next={{ request.path }}">&#9829;&#65039;</a>
@@ -12,7 +13,6 @@
     </div>
 </div>
 </div>
-<div>{% trans "owner" %}: <a href="{% url "user_detail" blog.owner.username %}">{{ blog.owner }}</a></div>
 {% if blog.youtube_video %}
 <div class='tube'>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/{{blog.youtube_video}}" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -36,10 +36,13 @@
         <span style="float:right;">{% trans "description"|capfirst %}</span>
     </li>
 {% for communication in blog.communication.all %}
-    <li><a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
-    <span style="float:right;">{{ communication.description }}</span></li>
+<li><a href="{% url "communication_done" communication.pk %}?next={{ request.path|urlencode }}">
+    {% if communication.is_done %}&#x2611;{% else %}&#x2610;{% endif %}</a>
+    <a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
+    <span style="float:right;">{{ communication.description }}</span>
+</li>
 {% empty %}
-    <li>{% trans "no blogs found"|title %}</li>
-    {% endfor %}
+    <li>{% trans "are not related communication"|title %}</li>
+{% endfor %}
 </ul>
 {% endblock content %}
