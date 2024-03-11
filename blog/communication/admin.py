@@ -56,7 +56,7 @@ class CommunicationAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['title', 'owner', 'created_at']
+    list_display = ['title', 'owner','communication', 'created_at']
     list_filter =  ['created_at', 'owner']
     search_fields = ['title', 'note', 'owner__last_name', 'owner__username']
     readonly_fields = ['id', 'created_at', 'updated_at']

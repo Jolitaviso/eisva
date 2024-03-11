@@ -20,22 +20,18 @@
     <li><h3>{% trans "login required" %}</h3>
         <span class="stat">{% trans "nothing here" %}</span></li>
     {% endfor %}
-</ul>
-<h2>{% trans "communication"|capfirst %}</h2>
-<ul>
-    <li class="list-table-header">
-        <span> {% trans "name"|capfirst %} </span>
-        <span style = "float:right;"> {% trans "description"|capfirst %}</span>
-    </li>
-{% for communication in communication_list %}
-<li>
-<a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a>
-<span>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></span>  
-<span style="float:right;">{{ communication.description }}</span>
-</li>
-{% empty %}
-<li>{% trans "no communication found"|title %}</li>
-{% endfor %}
-</ul>
+</ul><br/>
+<div>
+    <h2>{% trans "Communications" %}</h2>
+    <ul>
+        {% for communication in communications_communication %}
+            <li>
+                <a href="{% url 'communication_detail' communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
+            </li>
+        {% empty %}
+            <li>{% trans "No communication found" %}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock content %}
     

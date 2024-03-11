@@ -35,12 +35,11 @@
         <span>{% trans "name"|capfirst %}</span>
         <span style="float:right;">{% trans "description"|capfirst %}</span>
     </li>
-{% for communication in blog.communication.all %}
-<li><a href="{% url "communication_done" communication.pk %}?next={{ request.path|urlencode }}">
-    {% if communication.is_done %}&#x2611;{% else %}&#x2610;{% endif %}</a>
-    <a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
-    <span style="float:right;">{{ communication.description }}</span>
-</li>
+{% for communication in blog.communications.all %}
+    <li>
+        <a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
+        <span style="float:right;">{{ communication.description|safe }}</span>
+    </li>
 {% empty %}
     <li>{% trans "are not related communication"|title %}</li>
 {% endfor %}

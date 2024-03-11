@@ -1,17 +1,17 @@
 {% extends "base.html" %}{% load static i18n %}
 {% block title %}{{ block.super }} | {{ communication }}{% endblock title %}
 {% block content %}
-<p>{% trans "blog"|capfirst %}: {{ communication.blog }}</p>
 <div style="text-align: left;"> <h1><a href="{% url "blog_detail" communication.blog.pk  %}">{{ communication.blog }}</a><br>{{ communication.name }}</h1>
 <p>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></p>
-<h1 style="text-align: right;">
-    {% if request.user.is_authenticated %}
+<div style="text-align: right; font-size: 30px;">
+    <div>{% if request.user.is_authenticated %}
     <a href="{% url 'communication_like' communication.pk %}?next={{ request.path }}">&#9829;&#65039;</a>
     {% else %}
     &#128077;
     {% endif %}
     {{communication.likes.count }}
-</h1>
+    </div>
+</div>
 </div>
 {% if communication.youtube_video %}
 <div class='tube'>
@@ -31,10 +31,18 @@
     <a class="button" href="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "communication_list" %}{% endif %}">
         {% trans "return"|capfirst %}</a>
 </div>
-<p>{% trans "created"|capfirst %}: {{ communication.created_at }}, 
+<h style="text-align: right;"> 
+    <p>{% trans "created"|capfirst %}: {{ communication.created_at }}, 
     {% if communication.created_at != communication.updated_at %}
         {% trans "updated" %}: {{ communication.updated_at }}
     {% endif %}
 </p>
+</h>
 <img src="{% static "img/a.jpg" %}" width="377" height="377">
 {% endblock content %}
+<form method="post" action="{% url 'comment_create' %}">
+    {% csrf_token %}
+    <input type="hidden" name="communication_id" value="{{ communication.pk }}">
+    <textarea name="content" placeholder="Įveskite savo komentarą"></textarea>
+    <button type="submit">Pateikti komentarą</button>
+</form>

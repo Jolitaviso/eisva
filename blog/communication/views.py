@@ -9,9 +9,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from . import models, forms
+from django.db.models import Count
 from datetime import datetime
 from typing import Any
-from django.http import Http404
+
 
 class BlogListView(generic.ListView):
     model = models.Blog
@@ -86,7 +87,8 @@ class BlogDeleteView(
     
     
 def index(request: HttpRequest) -> HttpResponse:
-    communications = models.Communication.objects
+    communications = models.Communication.objects.all()
+    popular_blogs = models.Blog.objects.annotate(num_communications=Count('communications')).order_by('-num_communications')[:5]
     common_home = [
         (_('users').title(), get_user_model().objects.count()),
         (
@@ -119,9 +121,11 @@ def index(request: HttpRequest) -> HttpResponse:
     context = {
         'common_home': common_home,
         'user_home': user_home,
+        'popular_blogs': popular_blogs,
         
     }
     return render(request, 'communication/index.html', context)
+
 
 def communication_list(request: HttpRequest) -> HttpResponse:
     queryset = models.Communication.objects
@@ -168,7 +172,8 @@ def communication_create(request: HttpRequest) -> HttpResponse:
             return redirect('communication_list')
     else:
         form = forms.CommunicationForm()
-    form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
+    form.fields['blog'].queryset = models.Blog.objects.all()
+    #form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
     return render(request, 'communication/communication_create.html', {'form': form})
 
 @login_required
@@ -184,7 +189,8 @@ def communication_update(request: HttpRequest, pk: int) -> HttpResponse:
             return redirect('communication_list')
     else:
         form = forms.CommunicationForm(instance=communication)
-    form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
+    form.fields['blog'].queryset = models.Blog.objects.all()
+    #form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
     return render(request, 'communication/communication_update.html', {'form': form})
 
 @login_required
@@ -222,3 +228,13 @@ def communication_like(request: HttpRequest, pk: int) -> HttpResponse:
     if request.GET.get('next'):
         return redirect(request.GET.get('next'))
     return redirect('communication_list')
+
+@login_required
+def comment_create(request):
+    if request.method == 'POST':
+        communication_pk = request.POST.get('communication_pk')
+        note = request.POST.get('note')
+        owner = request.user 
+        communication = get_object_or_404(models.Communication, pk=communication_pk)
+        models.Comment.objects.create(communication=communication, owner=owner, note=note)
+        return redirect('communication_detail', pk=communication_pk)
