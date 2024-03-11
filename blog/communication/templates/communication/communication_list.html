@@ -27,18 +27,19 @@
 <ul>
     <li class="list-table-header">
         <span style="float:left;">{% trans "name"|capfirst %}</span>
-        <span style="float:right;">{% trans "description"|capfirst %}</span>
+        <span style="float:right;">{% trans "owner"|capfirst %}</span>
     </li><br>
 {% for communication in communication_list %}
     <li>
-        <span style="float:left;"><a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }}</a></span>
-        <span style="float:left;">{% trans "owner" %}:<a href="{% url 'user_detail' communication.owner.username %}">{{ communication.owner }}</a></span>
-        <span style="float:right;">{{ communication.description|slice:":100"|safe}}</span>
+        <span style="float:left;"><a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }} &nbsp;</a></span>
+        <span style="float:right;"><a href="{% url 'user_detail' communication.owner.username %}">{{ communication.owner }}</a></span>
+        <!--<span style="float:right;">{{ communication.description|slice:":50"|safe}}</span>-->
     </li>
 {% empty %}
     <li>{% trans "no communication found"|title %}</li>
 {% endfor %}
 </ul>
+
 <div class ='nice'>
     <div class='fog'>
         {% trans "thanks and good day"|capfirst %}

@@ -38,11 +38,25 @@
     {% endif %}
 </p>
 </h>
-<img src="{% static "img/a.jpg" %}" width="377" height="377">
+<h2> Comments... </h2>
+{% if not communication.comments.all %}
+No Comments Yet...<a href="#">
+Add One</a>
+{% else %}
+    {% for comment in communication.comments.all %}
+        <strong>
+            {{ comment.title }} - {{ comment.created_at}}
+        <strong>
+        <br/>
+        {{ comment.note }}
+    {% endfor %}
+{% endif %}
+
+<!--<img src="{% static "img/a.jpg" %}" width="377" height="377"> -->
 {% endblock content %}
 <form method="post" action="{% url 'comment_create' %}">
     {% csrf_token %}
     <input type="hidden" name="communication_id" value="{{ communication.pk }}">
     <textarea name="content" placeholder="Įveskite savo komentarą"></textarea>
     <button type="submit">Pateikti komentarą</button>
-</form>
+</form> 

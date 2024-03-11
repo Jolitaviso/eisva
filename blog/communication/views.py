@@ -41,17 +41,28 @@ class BlogDetailView(generic.DetailView):
 class BlogCreateView(LoginRequiredMixin, generic.CreateView):
     model = models.Blog
     template_name = 'communication/blog_create.html'
-    fields = ('name', 'owner', 'description', 'youtube_video' )
+    fields = ('name', 'description', 'youtube_video' )
     autocomplete_fields = ['owner']
     
-    def get_form(self, form_class=None):
+    def get_success_url(self) -> str:
+        messages.success(self.request,
+            _('blog created successfully').capitalize())
+        return reverse('blog_list')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
+    
+    
+    '''def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.instance.owner = self.request.user
         return form
 
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog created successfully').capitalize())
-        return reverse('blog_list')
+        return reverse('blog_list')'''
     
 
 class BlogUpdateView(
@@ -66,7 +77,11 @@ class BlogUpdateView(
     def get_success_url(self) -> str:
         messages.success(self.request, _('blog updated successfully').capitalize())
         return reverse('blog_list')
-
+    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
     def test_func(self) -> bool | None:
         return self.get_object().owner == self.request.user or self.request.user.is_superuser
     
@@ -238,3 +253,8 @@ def comment_create(request):
         communication = get_object_or_404(models.Communication, pk=communication_pk)
         models.Comment.objects.create(communication=communication, owner=owner, note=note)
         return redirect('communication_detail', pk=communication_pk)
+    
+def comment_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    return render(request, 'communication/comment_detail.html', {
+        'comment': get_object_or_404(models.Comment, pk=pk),
+    })

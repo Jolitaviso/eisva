@@ -4,10 +4,12 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from PIL import Image
+from tinymce.models import HTMLField
 
 
 class Profile(models.Model):
     user = models.OneToOneField(get_user_model(), verbose_name=_("user"), on_delete=models.CASCADE)
+    description = HTMLField(_("description"), max_length=10000, null=True, blank=True)
     picture = models.ImageField(_("picture"), upload_to='user_pictures/', blank=True, null=True)
 
     class Meta:
