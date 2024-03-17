@@ -2,14 +2,31 @@
 {% block title %}{{ object }} {% trans "at" %} {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>{% trans "user"|title %} {{ object.username }}</h1>
+<div class="box">
+    <div class="box-meniu">
+        {% if object == request.user %}
+        <p style= "font-weight:bold"> &#8201; {% trans "My meniu:" %} </p>
+        <p><a class="button" href="{% url 'user_update' %}">{% trans "edit profile" %}</a></p>
+        <p><a class="button" href="{% url 'message_create' %}">{% trans "create a new message" %}</a></p>
+        <p><a class="button" href="{% url 'message_list_received' %}">{% trans "received messages" %}</a></p>
+        <p><a class="button" href="{% url 'message_list_send' %}">{% trans "sent messages" %}</a></p>
+        {% endif %}
+    </div>
+    <p></p>
 <div>
+    {% if object == request.user %}
     {% if object.profile.picture %}
     <img src="{{ object.profile.picture.url }}" alt={% trans "profile Picture"|title %} width="300">
+{% endif %}
 {% endif %}
 </div>
 <p>{{ object.first_name }} {{ object.last_name }} {{ object.description }}</p>
 {% if object == request.user %}
-    <p><a class="button" href="{% url "user_update" %}">{% trans "edit profile data" %}</a></p>
+    <p><a class="button" href="{% url "user_update" %}">{% trans "edit profile" %}</a></p>
     <p>{% trans "e-mail"|capfirst %}: {{ object.email }}</p>
+    {% endif %}
+
+    {% if object != request.user %}
+    <a href="{% url 'message_create' %}?receiver={{ object.username }}" class="button">{% trans "Send Message" %}</a>
 {% endif %}
 {% endblock content %}

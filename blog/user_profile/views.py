@@ -5,6 +5,16 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from . import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from typing import Any
+from django.urls import reverse
+from django.views import generic
+from django.db.models import Q
+from . import models
+
+
+
 
 User = get_user_model()
 
@@ -53,3 +63,59 @@ def user_update(request: HttpRequest) -> HttpResponse:
 def user_list(request):
     users = User.objects.all()
     return render(request, 'user_profile/user_list.html', {'users': users})
+
+
+
+class MessageCreateView(LoginRequiredMixin, generic.CreateView):
+    model = models.Message
+    template_name = 'user_profile/message_create.html'
+    form_class = forms.MessageForm
+
+    def get_success_url(self) -> str:
+        messages.success(self.request, _('message created successfully').capitalize())
+        return reverse('message_list_send')
+    
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        form.instance.save()
+        return super().form_valid(form)
+
+
+@login_required
+def message_list_send(request: HttpRequest) -> HttpResponse:
+    user = request.user
+    user_messages = models.Message.objects.filter(sender=user)
+
+    receiver_username = request.GET.get('receiver')
+    if receiver_username:
+        receiver = get_object_or_404(get_user_model(), username=receiver_username)
+        user_messages = user_messages.filter(receiver=receiver)
+
+    context = {
+        'message_list_send': user_messages,
+        'user_list': get_user_model().objects.all().order_by('username'),
+        'next': reverse('message_list_send') + '?' + \
+            '&'.join([f"{key}={value}" for key, value in request.GET.items()]),
+        'no_matches': not user_messages.exists(),
+    }
+    return render(request, 'user_profile/message_list_send.html', context)
+
+
+@login_required
+def message_list_received(request: HttpRequest) -> HttpResponse:
+    user = request.user
+    user_messages = models.Message.objects.filter(receiver=user)
+
+    sender_username = request.GET.get('sender')
+    if sender_username:
+        sender = get_object_or_404(get_user_model(), username=sender_username)
+        user_messages = user_messages.filter(sender=sender)
+
+    context = {
+        'message_list_received': user_messages,
+        'user_list': get_user_model().objects.all().order_by('username'),
+        'next': reverse('message_list_received') + '?' + \
+            '&'.join([f"{key}={value}" for key, value in request.GET.items()]),
+        'no_matches': not user_messages.exists(),
+    }
+    return render(request, 'user_profile/message_list_received.html', context)

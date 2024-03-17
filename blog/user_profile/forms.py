@@ -26,3 +26,12 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         fields = ("picture", )
+
+class MessageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['receiver'].queryset = self.fields['receiver'].queryset.order_by('username')
+
+    class Meta:
+        model = models.Message
+        fields = ('sender', 'text', 'document', 'image', 'receiver')

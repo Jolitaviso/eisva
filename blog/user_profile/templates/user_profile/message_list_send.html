@@ -1,0 +1,43 @@
+{% extends "base.html" %}{% load i18n %} {% load static %}
+{% block title %} {% trans "list" %} | {{ block.super }} {% endblock title %}
+{% block content %}
+<h1>{% trans "sent messages"|capfirst %}</h1>
+<p><a class="button" href="{% url "message_create" %}">{% trans "create a new message"|capfirst %}</a></p>
+  <div class="toolbar">
+    <form method="get" action="{{ request.path }}">
+      <strong>{% trans "search by receiver:" %}</strong>&emsp;
+      <select name="receiver" onchange="this.form.submit();">
+        <option value="">{% trans "filter by user"|capfirst %}</option>
+        {% for user in user_list %}
+          <option value="{{ user.username }}" {% if user.username == request.GET.receiver %}selected{% endif %}>
+            ({{ user.username }})
+          </option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+  {% if no_matches %}
+    <p></p>
+    <p>{% trans "No matches found." %}</p>
+  {% else %}
+    {% for message in message_list_send %}
+      {% if request.user == message.sender %}
+        <div>
+          <ul class="message_room">
+            <l>
+              <p>{{ message.timestamp }} &emsp;&emsp;&emsp; {% trans "Message text:" %} <c style="font-family:cursive; font-size:120%; font-weight:700;">{{ message.text}}</c>
+              <p>{% if message.image %}
+                  <a href="{{ message.image.url }}">
+                    <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
+                  </a>
+                {% endif %}
+              </p>
+              <p>{% trans "From:" %} &nbsp; <strong>{{ message.sender }}</strong></p>
+              <p>{% trans "To:" %} &nbsp; <strong>{{ message.receiver }}</strong></p>
+            </l>
+          </ul>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock content %}
