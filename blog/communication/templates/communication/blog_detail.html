@@ -30,7 +30,12 @@
 {% endif %}
 <p>{% trans "communications" %}: {{ blog.communications.count }}</p>
 <h2> {% trans "communications"|capfirst %} ({{ blog.communications.count }}) </h2>
-<ul>
+<h style="text-align: right; font-size: 18px;">
+    <p>
+        <a class="button" href="{% url "communication_create" %}">{% trans "add"|capfirst %}</a>
+    </p>
+</h>
+<ul style="text-align: left;">
     <li class="list-table-header">
         <span>{% trans "name"|capfirst %}</span>
         <span style="float:right;">{% trans "description"|capfirst %}</span>
