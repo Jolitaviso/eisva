@@ -12,8 +12,8 @@ class MessageAdmin(admin.ModelAdmin):
     fieldsets = (
         (_("general"), {
             "fields": (
-                'text',
                 'sender',
+                'text',
                 'image',
                 'document',
                 'receiver',

@@ -1,19 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from . import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
-from typing import Any
 from django.urls import reverse
 from django.views import generic
-from django.db.models import Q
 from . import models
-
-
+from . import forms
 
 
 User = get_user_model()
@@ -65,7 +61,6 @@ def user_list(request):
     return render(request, 'user_profile/user_list.html', {'users': users})
 
 
-
 class MessageCreateView(LoginRequiredMixin, generic.CreateView):
     model = models.Message
     template_name = 'user_profile/message_create.html'
@@ -79,7 +74,6 @@ class MessageCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.sender = self.request.user
         form.instance.save()
         return super().form_valid(form)
-
 
 @login_required
 def message_list_send(request: HttpRequest) -> HttpResponse:
@@ -99,7 +93,6 @@ def message_list_send(request: HttpRequest) -> HttpResponse:
         'no_matches': not user_messages.exists(),
     }
     return render(request, 'user_profile/message_list_send.html', context)
-
 
 @login_required
 def message_list_received(request: HttpRequest) -> HttpResponse:

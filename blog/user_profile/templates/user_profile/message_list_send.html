@@ -33,7 +33,7 @@
                 {% endif %}
               </p>
               <p>{% trans "From:" %} &nbsp; <strong>{{ message.sender }}</strong></p>
-              <p>{% trans "To:" %} &nbsp; <strong>{{ message.receiver }}</strong></p>
+              <p>{% trans "To:" %} &nbsp; {% for receiver in message.receiver.all %}<strong>{{ receiver }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
             </l>
           </ul>
         </div>

@@ -37,7 +37,7 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey(
         get_user_model(),
-        verbose_name=_("owner"),
+        verbose_name=_("sender"),
         on_delete=models.CASCADE,
         related_name=_("sent_messages"),
         null=True,
@@ -54,7 +54,11 @@ class Message(models.Model):
         ordering = ['timestamp']
 
     def __str__(self):
-        return self.text[:30] if len(self.text) > 30 else self.text
+        return "{} {} {}".format(
+            self.sender,
+            _("sent by"),
+            self.receiver,
+        )
     
     def get_absolute_url(self):
         return reverse("message_detail", kwargs={"pk": self.pk})
