@@ -29,30 +29,32 @@
       <div>
         <ul class="message_room">
           <li>
-            <p>{% trans "date" %}: {{ message.timestamp }}</p>
-            <p>{% trans "message text" %}: {{ message.text }}</p>
-            {% if message.image %}
-              <p>{% trans "image" %}: <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150"></p>
-            {% endif %}
-            <p>{% trans "from" %}: &nbsp; 
-              <strong>{{ sender }}</strong>
-              <div>
-                {% if sender == request.user %}
-                    {% if sender.profile.picture %}
-                      <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" width="30">
-                    {% endif %}
-                {% endif %}
-              </div> 
-            </p>           
-              {% endwith %}
+            <p>{% trans "message :" %}<c style="font-family:cursive; font-size:120%; font-weight:700;"> {{ message.text }}</c></p>
+              <p>{% if message.image %}
+                <a href="{{ message.image.url }}">
+                  <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
+              {% endif %}
             </p>
-          </li>
-        </ul>
       </div>
-    
+      <div>
+          <p>{% trans "from" %}: &nbsp; 
+            {% for sender in message.sender.all %}
+              <a href="{% url 'user_detail' sender.username %}">
+                <strong>{{ sender }}</strong>
+                  {% if sender.profile.picture %}
+                    <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
+                  {% endif %}
+            {% endfor %}
+                  <div><p>{% trans "date" %}: {{ message.timestamp }}</p>
+                  </div>
+              <!--{% if sender == request.user %}{% endif %}-->  
+          </p> 
+          </li>
+        </ul>  
+      </div>
+    {% endwith %} 
   {% endfor %}
 {% else %}
-  <p>{% trans "No received messages." %}</p>
 {% endif %}
 {% endif %}
 
