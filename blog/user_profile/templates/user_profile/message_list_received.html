@@ -6,56 +6,46 @@
 {% block content %}
 <h1>{% trans "received messages" %}</h1>
 <p><a class="button" href="{% url "message_create" %}">{% trans "create a new message"|capfirst %}</a></p>
-  <div class="toolbar">
-    <form method="get" action="{{ request.path }}">
-      <strong>{% trans "search by sender:" %}</strong>&emsp;
-      <select name="sender" onchange="this.form.submit();">
-        <option value="">{% trans "filter by user"|capfirst %}</option>
-        {% for user in user_list %}
-          <option value="{{ user.username }}" {% if user.username == request.GET.receiver %}selected{% endif %}>
-            ({{ user.username }})
-          </option>
-        {% endfor %}
-      </select>
-    </form>
-  </div>
-  {% if no_matches %}
-    <p></p>
-    <p>{% trans "no matches found." %}</p>
-  {% else %}
-  {% if message_list_received %}
+<div class="toolbar">
+  <form method="get" action="{{ request.path }}">
+    <strong>{% trans "search by sender:" %}</strong>&emsp;
+    <select name="sender" onchange="this.form.submit();">
+      <option value="">{% trans "filter by user"|capfirst %}</option>
+      {% for user in user_list %}
+        <option value="{{ user.username }}" {% if user.username == request.GET.receiver %}selected{% endif %}>
+          ({{ user.username }})
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+{% if no_matches %}
+  <p></p>
+  <p>{% trans "no matches found." %}</p>
+{% else %}
   {% for message in message_list_received %}
     {% with sender=message.sender %}
       <div>
         <ul class="message_room">
-          <li>
+          <l>
             <p>{% trans "message :" %}<c style="font-family:cursive; font-size:120%; font-weight:700;"> {{ message.text }}</c></p>
-              <p>{% if message.image %}
-                <a href="{{ message.image.url }}">
-                  <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
+              {% if message.image %}
+                <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
               {% endif %}
-            </p>
-      </div>
-      <div>
-          <p>{% trans "from" %}: &nbsp; 
-            {% for sender in message.sender.all %}
-              <a href="{% url 'user_detail' sender.username %}">
-                <strong>{{ sender }}</strong>
-                  {% if sender.profile.picture %}
-                    <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
-                  {% endif %}
-            {% endfor %}
-                  <div><p>{% trans "date" %}: {{ message.timestamp }}</p>
-                  </div>
-              <!--{% if sender == request.user %}{% endif %}-->  
-          </p> 
-          </li>
-        </ul>  
+            <div>
+              <p>{% trans "from" %}: &nbsp; 
+                  <a href="{% url 'user_detail' sender.username %}">
+                    <strong>{{ sender }}</strong>
+                    {% if sender.profile.picture %}
+                      <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
+                    {% endif %}
+                  </a>
+              </p>
+            <p>{% trans "date" %}: {{ message.timestamp }}</p>
+          </l>
+        </ul>
       </div>
     {% endwith %} 
   {% endfor %}
-{% else %}
 {% endif %}
-{% endif %}
-
 {% endblock content %}
