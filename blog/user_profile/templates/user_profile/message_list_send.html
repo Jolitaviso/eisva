@@ -25,15 +25,24 @@
         <div>
           <ul class="message_room">
             <l>
-              <p>{{ message.timestamp }} &emsp;&emsp;&emsp; {% trans "Message text:" %} <c style="font-family:cursive; font-size:120%; font-weight:700;">{{ message.text}}</c>
+              <p>{% trans "Message: " %} <c style="font-family:cursive; font-size:120%; font-weight:700;">{{ message.text }}</c>
               <p>{% if message.image %}
                   <a href="{{ message.image.url }}">
                     <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
-                  </a>
                 {% endif %}
               </p>
-              <p>{% trans "From:" %} &nbsp; <strong>{{ message.sender }}</strong></p>
-              <p>{% trans "To:" %} &nbsp; {% for receiver in message.receiver.all %}<strong>{{ receiver }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+              <p>{% trans "To: " %}
+                {% for receiver in message.receiver.all %}
+                  <a href="{% url 'user_detail' receiver.username %}">
+                    <strong>{{ receiver }}</strong>
+                    {% if receiver.profile.picture %}
+                      <img src="{{ receiver.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
+                    {% endif %}
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %} 
+                  <a/>
+              </p>
+              <span style="float: right;">{% trans "Sent at: " %} {{ message.timestamp }}</span>
             </l>
           </ul>
         </div>

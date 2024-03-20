@@ -20,10 +20,13 @@ class BlogListView(generic.ListView):
     
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
-        if self.request.GET.get('owner'):
-            queryset = queryset.filter(owner__username=self.request.GET.get('owner'))
+        owner = self.request.GET.get('owner')
+        search_name = self.request.GET.get('search_name')
+        if owner:
+            queryset = queryset.filter(owner__username=owner)
+        if search_name:
+            queryset = queryset.filter(name__icontains=search_name)
         return queryset
-
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['user_list'] = get_user_model().objects.all().order_by('username')
@@ -52,9 +55,7 @@ class BlogCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-    
-    
-    
+      
     '''def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.instance.owner = self.request.user
@@ -100,7 +101,6 @@ class BlogDeleteView(
     def test_func(self) -> bool | None:
         return self.get_object().owner == self.request.user or self.request.user.is_superuser
     
-    
 def index(request: HttpRequest) -> HttpResponse:
     communications = models.Communication.objects.all()
     popular_blogs = models.Blog.objects.annotate(num_communications=Count('communications')).order_by('-num_communications')[:5]
@@ -141,7 +141,6 @@ def index(request: HttpRequest) -> HttpResponse:
     }
     return render(request, 'communication/index.html', context)
 
-
 def communication_list(request: HttpRequest) -> HttpResponse:
     queryset = models.Communication.objects
     owner_username = request.GET.get('owner')
@@ -167,13 +166,11 @@ def communication_list(request: HttpRequest) -> HttpResponse:
     }
     return render(request, 'communication/communication_list.html', context)
 
-
 def communication_detail(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'communication/communication_detail.html', {
         'communication': get_object_or_404(models.Communication, pk=pk),
     })
-    
-    
+     
 @login_required
 def communication_create(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
@@ -218,7 +215,6 @@ def communication_delete(request: HttpRequest, pk: int) -> HttpResponse:
             return redirect(request.GET.get('next'))
         return redirect('communication_list')
     return render(request, "communication/communication_delete.html", {'communication': communication, 'object': communication})
-
 
 @login_required
 def blog_like(request: HttpRequest, pk: int) -> HttpResponse:

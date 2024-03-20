@@ -3,11 +3,13 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from . import models
+from django.utils.translation import gettext_lazy as _
 
 class CreateUserForm(UserCreationForm):
+    description = forms.CharField(label=_("description"), widget=forms.Textarea)
     class Meta:
         model = get_user_model()
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'description', 'email')
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -17,9 +19,10 @@ class CreateUserForm(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+    description = forms.CharField(label=_("description"), widget=forms.Textarea)
     class Meta:
         model = get_user_model()
-        fields = ("first_name", "last_name", "email", )
+        fields = ("first_name", "last_name", "email", 'description' )
 
 
 class ProfileForm(forms.ModelForm):
