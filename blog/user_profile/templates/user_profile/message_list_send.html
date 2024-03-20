@@ -31,17 +31,21 @@
                     <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
                 {% endif %}
               </p>
-              <p>{% trans "To: " %}
-                {% for receiver in message.receiver.all %}
-                  <a href="{% url 'user_detail' receiver.username %}">
-                    <strong>{{ receiver }}</strong>
+        </div>
+          <div>
+            <p>{% trans "To: " %}
+              {% for receiver in message.receiver.all %}
+                <a href="{% url 'user_detail' receiver.username %}">
+                  <strong>{{ receiver }}</strong>
                     {% if receiver.profile.picture %}
                       <img src="{{ receiver.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
                     {% endif %}
-                    {% if not forloop.last %}, {% endif %}
-                {% endfor %} 
-                  <a/>
-              </p>
+                    {% if not forloop.last %}, 
+                    {% endif %}
+              {% endfor %} 
+                <a/></p>
+          </div>
+          <div>
               <span style="float: right;">{% trans "Sent at: " %} {{ message.timestamp }}</span>
             </l>
           </ul>
