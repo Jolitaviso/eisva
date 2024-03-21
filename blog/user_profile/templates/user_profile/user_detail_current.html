@@ -8,7 +8,7 @@
     {% endif %}
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-weight: bold; font-size: 24px;">{{ object.first_name }} {{ object.last_name }}</p>
-        <p>{{ user_profile.description }}</p>
+        <p>{{ description|safe }}</p>
     </div>
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-size: 24px;">{% trans "e-mail"|capfirst %}: {{ object.email }}</p>

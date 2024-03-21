@@ -6,10 +6,9 @@ from . import models
 from django.utils.translation import gettext_lazy as _
 
 class CreateUserForm(UserCreationForm):
-    description = forms.CharField(label=_("description"), widget=forms.Textarea)
     class Meta:
         model = get_user_model()
-        fields = ('username', 'first_name', 'last_name', 'description', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email')
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)

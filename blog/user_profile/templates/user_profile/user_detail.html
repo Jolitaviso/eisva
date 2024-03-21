@@ -8,6 +8,7 @@
 {% endif %}
 </div>
 <p>{{ object.first_name }} {{ object.last_name }}</p>
+<p>{{ description }}</p>
 {% if object == request.user %}
     <p><a class="button" href="{% url "user_update" %}">{% trans "edit profile data" %}</a></p>
     <p>{%trans "e-mail"|capfirst %}: {{object.email }}</p>

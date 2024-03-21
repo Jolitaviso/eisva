@@ -2,6 +2,12 @@ from django.contrib import admin
 from . import models
 from django.utils.translation import gettext_lazy as _
 
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'description']  
+    list_editable = ['description'] 
+    
+    
 class MessageAdmin(admin.ModelAdmin):
     list_display = ['text', 'sender', 'timestamp']
     list_display_links = ['text', 'sender']
