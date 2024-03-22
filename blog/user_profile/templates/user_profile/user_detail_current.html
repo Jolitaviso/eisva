@@ -4,7 +4,9 @@
 <h1>{% trans "user"|title %} {{ object.username }}</h1>
 <div>
     {% if object.profile.picture %}
-    <img src="{{ object.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 200px; height: 200px; margin-right: 10px;">
+    <img src="{{ object.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-right: 10px;">
+    {% else %}
+    <div class="no-picture-placeholder" style="border-radius: 50%; width: 200px; height: 200px; background-color: white;"></div>
     {% endif %}
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-weight: bold; font-size: 24px;">{{ object.first_name }} {{ object.last_name }}</p>
@@ -13,21 +15,23 @@
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-size: 24px;">{% trans "e-mail"|capfirst %}: {{ object.email }}</p>
     </div>    
+    <div style="display: inline-block; vertical-align: top;">
+        <p><a class="button" href="{% url 'user_update' %}">{% trans "edit profile"|capfirst %}</a></p>
+    </div>   
 </div>
 <div class="box">
 <div class="box-meniu">
     {% if object == request.user %}
-    <p style= "font-weight:bold"> &#8201; {% trans "My meniu:" %} </p>
-    <p><a class="button" href="{% url 'user_update' %}">{% trans "edit profile" %}</a></p>
-    <p><a class="button" href="{% url 'message_create' %}">{% trans "create a new message" %}</a></p>
-    <p><a class="button" href="{% url 'message_list_received' %}">{% trans "received messages" %}</a></p>
-    <p><a class="button" href="{% url 'message_list_send' %}">{% trans "sent messages" %}</a></p>
+    <p style= "font-weight:bold"> &#8201; {% trans "message :"|capfirst %} </p>
+    <p><a class="button" href="{% url 'message_create' %}">{% trans "new message "|capfirst %}&#9998;</a></p>
+    <p><a class="button" href="{% url 'message_list_received' %}">{% trans "inbox "|capfirst %}&#9993;</a></p>
+    <p><a class="button" href="{% url 'message_list_send' %}">{% trans "sent "|capfirst %}&#10139;</a></p>
     {% endif %}
 </div>
 <p></p>
     <div>
 {% if object != request.user %}
-    <a href="{% url 'message_create' %}?receiver={{ object.username }}" class="button">{% trans "Send Message" %}</a>
+    <a href="{% url 'message_create' %}?receiver={{ object.username }}" class="button">{% trans "send"|capfirst %}</a>
 {% endif %}
     </div>
 {% endblock content %}

@@ -57,12 +57,10 @@ def user_update(request: HttpRequest) -> HttpResponse:
     }) 
 
 
-
 @login_required
 def user_list(request):
-    users = User.objects.all()
+    users = get_user_model().objects.all().order_by('username')
     return render(request, 'user_profile/user_list.html', {'users': users})
-
 
 class MessageCreateView(LoginRequiredMixin, generic.CreateView):
     model = models.Message

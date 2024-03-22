@@ -18,8 +18,8 @@
 <ul>
 {% for blog in blog_list %}
     <li>
-        <a href="{% url "blog_detail" blog.pk %}">{{ blog.name }}</a>
-        ({{ blog.communications.count }})
+        <a href="{% url "blog_detail" blog.pk %}">{{ blog.name }}
+        ({{ blog.communications.count }})</a>
     </li>
 {% empty %}
     <li>{% trans "no blogs found"|title %}</li>

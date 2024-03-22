@@ -2,10 +2,14 @@
 {% block title %}{{ object }} {% trans "at" %} {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>{% trans "user"|title %} {{ object.username }}</h1>
-<div>
+<div class="user-block">
     {% if object.profile.picture %}
-    <img src="{{ object.profile.picture.url }}" alt={% trans "profile Picture"|title %} width="300">
-{% endif %}
+    <img src="{{ object.profile.picture.url }}" alt={% trans "profile picture"|title %} width="300">
+    {% else %}
+        <div class="no-picture-placeholder">
+            <p class="no-picture-text">Eisva mudu abudu</p>
+        </div>
+    {% endif %}
 </div>
 <p>{{ object.first_name }} {{ object.last_name }}</p>
 <p>{{ description }}</p>

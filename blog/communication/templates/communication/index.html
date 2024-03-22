@@ -21,17 +21,5 @@
         <span class="stat">{% trans "nothing here" %}</span></li>
     {% endfor %}
 </ul><br/>
-<div>
-    <h2>{% trans "Communications" %}</h2>
-    <ul>
-        {% for communication in communications_communication %}
-            <li>
-                <a href="{% url 'communication_detail' communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
-            </li>
-        {% empty %}
-            <li>{% trans "No communication found" %}</li>
-        {% endfor %}
-    </ul>
-</div>
 {% endblock content %}
     

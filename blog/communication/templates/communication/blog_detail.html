@@ -1,7 +1,7 @@
 {% extends "base.html" %}{% load i18n %}
 {% block title %}{{ blog.name }} | {{ block.super }}{% endblock title %}
 {% block content %}
-<div style="text-align: left;"> <h1>{{ blog.name }}</h1>
+<h1>{{ blog.name }}</h1>
 <div>{% trans "owner" %}: <a href="{% url "user_detail" blog.owner.username %}">{{ blog.owner }}</a></div>
 <div style="display: flex; align-items: right; justify-content: space-between; font-size: 30px;">
     <div>{% if request.user.is_authenticated %}
@@ -9,14 +9,13 @@
     {% else %}
     &#128077;
     {% endif %}
-    {{blog.likes.count }}
     </div>
 </div>
-</div>
+    {{blog.likes.count }}
 {% if blog.youtube_video %}
 <div class='tube'>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/{{blog.youtube_video}}" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-<div>
+</div>
 {% endif %}
 {% if blog.description %}
 <div class="user-content">{{ blog.description|safe }}</div>
@@ -26,27 +25,25 @@
         <a class="button" href="{% url "blog_update" blog.pk %}">{% trans "edit"|capfirst %}</a>
         <a class="button" href="{% url "blog_delete" blog.pk %}">{% trans "delete"|capfirst %}</a>
         <a class="button" href="{% if request.GET.next %}{{ request.GET.next }}{% else %}{% url "blog_list" %}{% endif %}">{% trans "return"|capfirst %}</a>
-    </p></h>
+    </p>
+</h>
 {% endif %}
-<p>{% trans "communications" %}: {{ blog.communications.count }}</p>
 <h2> {% trans "communications"|capfirst %} ({{ blog.communications.count }}) </h2>
 <h style="text-align: right; font-size: 18px;">
     <p>
         <a class="button" href="{% url "communication_create" %}">{% trans "add"|capfirst %}</a>
     </p>
 </h>
-<ul style="text-align: left;">
-    <li class="list-table-header">
-        <span>{% trans "name"|capfirst %}</span>
-        <span style="float:right;">{% trans "description"|capfirst %}</span>
-    </li>
-{% for communication in blog.communications.all %}
-    <li>
-        <a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}">{{ communication.name }}</a>
-        <span style="float:right;">{{ communication.description|safe }}</span>
-    </li>
-{% empty %}
-    <li>{% trans "are not related communication"|title %}</li>
-{% endfor %}
-</ul>
+<div style="text-align: left;" class="communication-list">
+    <ul>
+        {% for communication in blog.communications.all %}
+        <li class="communication-item">
+            <a href="{% url "communication_detail" communication.pk %}?next={{ request.path|urlencode }}" class="communication-name">{{ communication.name }}</a>
+            <span class="communication-description">{{ communication.description|truncatechars:500 |safe }}</span>
+        </li>
+        {% empty %}
+        <li>{% trans "No related communications." %}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock content %}

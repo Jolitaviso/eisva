@@ -5,9 +5,9 @@
 <p><a class="button" href="{% url "message_create" %}">{% trans "create a new message"|capfirst %}</a></p>
   <div class="toolbar">
     <form method="get" action="{{ request.path }}">
-      <strong>{% trans "search by receiver:" %}</strong>&emsp;
+      <strong>{% trans "search by: " %}</strong>&emsp;
       <select name="receiver" onchange="this.form.submit();">
-        <option value="">{% trans "filter by user"|capfirst %}</option>
+        <option value="">{% trans "username"|capfirst %}</option>
         {% for user in user_list %}
           <option value="{{ user.username }}" {% if user.username == request.GET.receiver %}selected{% endif %}>
             ({{ user.username }})
@@ -20,35 +20,48 @@
     <p></p>
     <p>{% trans "No matches found." %}</p>
   {% else %}
+  <div class="message-list">
     {% for message in message_list_send %}
       {% if request.user == message.sender %}
-        <div>
-          <ul class="message_room">
-            <l>
-              <p>{% trans "Message: " %} <c style="font-family:cursive; font-size:120%; font-weight:700;">{{ message.text }}</c><br>
+        <div class="message-room">
+          <div class="message-sender">
+           <p>{% trans "to: "|capfirst %}
+              {% for receiver in message.receiver.all %}
+                {% if receiver.profile.picture %}
+                  <img src="{{ receiver.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
+                {% else %}
+                <div class="no-picture-placeholder" style="border-radius: 50%; width: 50px; height: 50px; background-color: white;"></div>
+                {% endif %}
+                  <a href="{% url 'user_detail' receiver.username %}">
+                <strong>{{ receiver }}</strong>
+                {% if not forloop.last %}, {% endif %}
+              </a>
+            {% endfor %} 
+          </p>
+        </div>
+    <div class="message-content">
+              <a class="message-text"> <c style="font-family:cursive; font-size:120%; font-weight:700;">{{ message.text }}</c><br>
               {% if message.image %}
-                    <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
+                    <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150" class="message-image">
               {% endif %}
-              </p>
-                <div>
-                   <p>{% trans "To: " %}
-                      {% for receiver in message.receiver.all %}
-                        <a href="{% url 'user_detail' receiver.username %}">
-                          <strong>{{ receiver }}</strong>
-                          {% if receiver.profile.picture %}
-                            <img src="{{ receiver.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
-                          {% endif %}
-                          {% if not forloop.last %}, {% endif %}
-                        </a>
-                      {% endfor %} 
-                    </p>
-                  </div>
-                  <div>
-                    <p>{% trans "Sent at: " %} {{ message.timestamp }}</p>
-                  </div>
-              </l>
-            </ul>
-          </div>
+              </a>
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var images = document.querySelectorAll('.message-image'); // Pasirenkame visus elementus su klase "message-image"
+      
+          images.forEach(function(image) {
+            image.addEventListener('click', function() {
+              this.classList.toggle('enlarged'); // Pridedame arba pašaliname klasę "enlarged" paspaudus ant nuotraukos
+            });
+          });
+        });
+      </script>
+      <div class="message-details">
+        <p> {{ message.timestamp }}</p>
+      </div>
+    </div>
+</div>
       {% endif %}
     {% endfor %}
   {% endif %}

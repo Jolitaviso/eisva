@@ -42,9 +42,9 @@ header ul.nav li a, header ul.nav li form button {
     margin: 0;
     padding: 0.5rem;
     border: none;
-    border-bottom: 2px solid #004488;
+    border-bottom: 2px solid black;
     cursor: pointer;
-    color: #004488;
+    color: black;
     font-size: 100%;
     border-radius: 0.5rem;
     font-weight: 750;
@@ -52,7 +52,7 @@ header ul.nav li a, header ul.nav li form button {
 }
 
 header ul.nav li a:hover, header ul.nav li form button:hover {
-    background: radial-gradient(circle, #fc5c7d, #00f2fe);
+    background: radial-gradient(circle, #d7aefb, #00f2fe);
     border-bottom: 2px solid #0055cc;
     color: #0055cc;
     text-decoration: none;
@@ -78,7 +78,7 @@ a {
 }
 
 a:hover {
-    color: #00f2fe;
+    color: #d7aefb;
 }
 h1, h2, h3, h4, h5, h6 {
     background: rgba(0.1, 0.1, 0.1, 0.1);
@@ -93,12 +93,16 @@ p, main ul {
     padding: 0 3rem;
     margin: 2rem 0;
     background: none;
+
 }
 
 main ul li {
     border-bottom: 1px solid #999999;
     font-style: normal;
     font-weight: lighter;
+    font-weight: 850;
+    font-style: normal;
+
 }
 
 main ul li.list-table-header {
@@ -130,10 +134,6 @@ footer p {
     margin: 0;
 }
 
-footer a {
-    color: #00f2fe;   /*#66aaff; graži mėlyna spalva*/
-}
-
 footer a:hover {
     color: #77bbff;
 }
@@ -148,7 +148,7 @@ section.messages {
 .message, ul.errorlist  {
     padding: 0.5rem;
     margin: 0;
-    border-bottom: 1px solid #888888;
+   /* border-bottom: 1px solid #888888;*/
 }
 
 .message-debug {
@@ -179,10 +179,13 @@ main form label {
 
 main form input, 
 main form textarea, 
-main form select,
-main form button {
+main form select
+/*main form button*/ {
     font-size: 120%;
     background-color: #ffffff9f;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    
 }
 
 main form .helptext {
@@ -225,9 +228,9 @@ button, .button {
     margin: 0;
     padding: 0.5rem;
     border: none;
-    border-bottom: 2px solid #004488;
+    border-bottom: 2px solid black;
     cursor: pointer;
-    color: #004488;
+    color: black;
     font-size: 100%;
     border-radius: 2rem;
     font-weight: 750;
@@ -293,3 +296,119 @@ ul.home li .stat {
     overflow: auto;
     max-width: max-content;
 }
+
+.user-blocks {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-block {
+    width: 300px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ffffff5f;
+    border-radius: 25px;
+    background: #ffffff2f;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 300px; /* Pakeiskite dydį pagal poreikį */
+    height: 300px; /* Pakeiskite dydį pagal poreikį */
+    object-fit: cover; /* Pasirūpina, kad nuotrauka užpildytų apskritimą */
+    margin-bottom: 10px;
+    border: 2px solid black;
+    text-align: center;
+
+}
+.no-picture-placeholder {
+    width: 300px; /* Nustatome plotį */
+    height: 300px; /* Nustatome aukštį */
+    background-color: #ffffff9f; /* Nustatome baltą spalvą */
+    border-radius: 50%; /* Apsibrėžiame apskritimo formą */
+    border: 2px solid black; /* Pridedame rėmelį */
+    /* Galite pridėti papildomų stilių pagal savo poreikius */
+    display: flex; /* Naudojame lankstų išdėstymą */
+    justify-content: center; /* Centruojame horizontaliai */
+    align-items: center; /* Centruojame vertikaliai */
+}
+
+
+.create-message{
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.communication-item, .message-room {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ffffff5f;
+    border-radius: 25px;
+    background: #ffffff2f;
+}
+
+.communication-item .communication-description {
+    font-weight: normal;
+    
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /*.message-room {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+  }*/
+  
+  .message-sender {
+    display: flex;
+    align-items: center; 
+  }
+  
+.message-sender img, .no-picture-placeholder {
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+  }
+  
+
+  .message-details {
+    margin-top: 10px;
+    text-align: right;
+    margin: 0;
+  }
+  
+  .message-text {
+    font-family: cursive;
+    font-size: 120%;
+    font-weight: 700;
+    margin: 20px;
+  }
+  
+  .message-image {
+    cursor: pointer;
+    max-width: 100px; /* maksimalus plotis */
+    max-height: 100px; 
+  }
+
+  .enlarged {
+    position: fixed; /* Pastumia nuotrauką į ekraną, net jei slankiojate */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto; /* Centruoja nuotrauką horizontaliai ir vertikaliai */
+    z-index: 9999; /* Padidina "z" indeksą, kad nuotrauka būtų viršuje */
+    max-width: 90%; /* Apriboja didžiausią nuotraukos dydį */
+    max-height: 90%;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }

@@ -8,9 +8,9 @@
 <p><a class="button" href="{% url "message_create" %}">{% trans "create a new message"|capfirst %}</a></p>
 <div class="toolbar">
   <form method="get" action="{{ request.path }}">
-    <strong>{% trans "search by sender:" %}</strong>&emsp;
+    <strong>{% trans "search by: "|capfirst %}</strong>
     <select name="sender" onchange="this.form.submit();">
-      <option value="">{% trans "filter by user"|capfirst %}</option>
+      <option value="">{% trans "username"|capfirst %}</option>
       {% for user in user_list %}
         <option value="{{ user.username }}" {% if user.username == request.GET.receiver %}selected{% endif %}>
           ({{ user.username }})
@@ -23,29 +23,43 @@
   <p></p>
   <p>{% trans "no matches found." %}</p>
 {% else %}
-  {% for message in message_list_received %}
+<div class="message-list">
+  {% for message in message_list_received|dictsortreversed:"timestamp" %}
     {% with sender=message.sender %}
-      <div>
-        <ul class="message_room">
-          <l>
-            <p>{% trans "message :" %}<c style="font-family:cursive; font-size:120%; font-weight:700;"> {{ message.text }}</c></p>
-              {% if message.image %}
-                <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150">
-              {% endif %}
-            <div>
-              <p>{% trans "from" %}: &nbsp; 
-                  <a href="{% url 'user_detail' sender.username %}">
-                    <strong>{{ sender }}</strong>
-                    {% if sender.profile.picture %}
-                      <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
-                    {% endif %}
-                  </a>
-              </p>
-            <p>{% trans "date" %}: {{ message.timestamp }}</p>
-          </l>
-        </ul>
+      <div class="message-room">
+        <div class="message-sender">
+          {% if sender.profile.picture %}
+            <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" class="profile-picture">
+          {% else %}
+          <div class="no-picture-placeholder" style="border-radius: 50%; width: 50px; height: 50px; background-color: white;"></div>
+            {% endif %}
+          <a href="{% url 'user_detail' sender.username %}">
+            <strong>{{ sender }}</strong>
+          </a>
+        </div>
+        <div class="message-content">
+          <a class="message-text"> {{ message.text }}</a>
+          {% if message.image %}
+            <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" class="message-image">
+          {% endif %}
+        </div>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var images = document.querySelectorAll('.message-image'); // Pasirenkame visus elementus su klase "message-image"
+        
+            images.forEach(function(image) {
+              image.addEventListener('click', function() {
+                this.classList.toggle('enlarged'); // Pridedame arba pašaliname klasę "enlarged" paspaudus ant nuotraukos
+              });
+            });
+          });
+        </script>
+        <div class="message-details">
+          <p> {{ message.timestamp }}</p>
+        </div>
       </div>
     {% endwith %} 
   {% endfor %}
+</div>
 {% endif %}
 {% endblock content %}

@@ -1,9 +1,22 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-    <h1>{% trans "user list"|capfirst %}</h1>
-    <ul>
+    <h1>{% trans "User List"|capfirst %}</h1>
+    <div class="user-blocks">
         {% for user in users %}
-            <li>{{ user.username }}</li>
+        <div class="user-block">
+            <a href="{% url 'user_detail' user.username %}">
+                {% if user.profile.picture %}
+                    <img src="{{ user.profile.picture.url }}" alt="{% trans "profile picture"|title %}" width="300" class="profile-picture">
+                    {% else %}
+                    <div class="no-picture-placeholder" style="border-radius: 50%; width: 300px; height: 300px; background-color: white;"></div>
+                    {% endif %}
+                <h2>{{ user.username }}</h2>
+            </a>
+            <a href="{% url 'message_create' %}?receiver={{ user.username }}" class="create-message">Create Message</a>
+        </div>
+        {% empty %}
+        <p>{% trans "no users found." %}</p> <!-- Jei sąrašas tuščias, rodomas pranešimas -->
         {% endfor %}
-    </ul>
-{% endblock %}
+    </div>
+{% endblock content %}
