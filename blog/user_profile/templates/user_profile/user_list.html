@@ -1,22 +1,22 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 {% load i18n %}
 {% block content %}
     <h1>{% trans "user List"|capfirst %}</h1>
     <div class="user-blocks">
         {% for user in users %}
         <div class="user-block">
-            <a href="{% url 'user_detail' user.username %}">
+            <a style= "opacity: 0.7; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6" href="{% url 'user_detail' user.username %}">
                 {% if user.profile.picture %}
-                    <img src="{{ user.profile.picture.url }}" alt="{% trans "profile picture"|title %}" width="300" class="profile-picture">
+                    <img src="{{ user.profile.picture.url }}" alt="{% trans "profile picture"|title %}" style="border-radius: 50%; width: 300px; height: 300px; object-fit: cover; margin-right: 10px;" class="profile-picture">
                     {% else %}
-                    <div class="no-picture-placeholder" style="border-radius: 50%; width: 300px; height: 300px; background-color: white;"></div>
+                    <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|title %}"  style="border-radius: 50%; width: 300px; height: 300px; object-fit: cover; margin-right: 10px;"class="no-profile-picture">
                     {% endif %}
                 <h2>{{ user.username }}</h2>
-            </a>
+            </a></a>
             <a href="{% url 'message_create' %}?receiver={{ user.username }}" class="create-message">create message</a>
         </div>
         {% empty %}
-        <p>{% trans "no users found." %}</p> <!-- Jei sąrašas tuščias, rodomas pranešimas -->
+        <p>{% trans "no users found." %}</p>
         {% endfor %}
     </div>
 {% endblock content %}

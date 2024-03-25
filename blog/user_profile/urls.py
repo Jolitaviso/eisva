@@ -8,7 +8,7 @@ urlpatterns = [
     path('users/', views.user_list, name='user_list'),
     path('edit/', views.user_update, name='user_update'),
     path('received/', views.message_list_received, name='message_list_received'),  
-    path('send/', views.message_list_send, name='message_list_send'),  
+    path('sent/', views.message_list_sent, name='message_list_sent'),  
     path('create/', views.MessageCreateView.as_view(), name='message_create'),
     
 ]

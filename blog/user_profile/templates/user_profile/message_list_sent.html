@@ -21,7 +21,7 @@
     <p>{% trans "No matches found." %}</p>
   {% else %}
   <div class="message-list">
-    {% for message in message_list_send %}
+    {% for message in message_list_sent %}
       {% if request.user == message.sender %}
         <div class="message-room">
           <div class="message-sender">

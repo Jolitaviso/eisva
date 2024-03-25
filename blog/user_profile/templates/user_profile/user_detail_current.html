@@ -10,7 +10,7 @@
     {% endif %}
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-weight: bold; font-size: 24px;">{{ object.first_name }} {{ object.last_name }}</p>
-        <p>{{ description|safe }}</p>
+        <p>{{ object.profile.description|safe }}</p>
     </div>
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-size: 24px;">{% trans "e-mail"|capfirst %}: {{ object.email }}</p>
@@ -27,7 +27,7 @@
     <p style= "font-weight:bold"> &#8201; {% trans "message :"|capfirst %} </p>
     <p><a class="button" href="{% url 'message_create' %}">{% trans "new message "|capfirst %}&#9998;</a></p>
     <p><a class="button" href="{% url 'message_list_received' %}">{% trans "inbox "|capfirst %}&#9993;</a></p>
-    <p><a class="button" href="{% url 'message_list_send' %}">{% trans "sent "|capfirst %}&#10139;</a></p>
+    <p><a class="button" href="{% url 'message_list_sent' %}">{% trans "sent "|capfirst %}&#10139;</a></p>
     {% endif %}
 </div>
 <p></p>

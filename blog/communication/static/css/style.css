@@ -311,16 +311,10 @@ ul.home li .stat {
     background: #ffffff2f;
 }
 
-.profile-picture {
-    border-radius: 50%;
-    width: 300px; /* Pakeiskite dydį pagal poreikį */
-    height: 300px; /* Pakeiskite dydį pagal poreikį */
-    object-fit: cover; /* Pasirūpina, kad nuotrauka užpildytų apskritimą */
-    margin-bottom: 10px;
-    border: 2px solid black;
-    text-align: center;
-
+.profile-picture, .no-profile-picture{
+    object-fit: cover; 
 }
+
 .no-picture-placeholder {
     width: 300px; /* Nustatome plotį */
     height: 300px; /* Nustatome aukštį */
@@ -427,18 +421,21 @@ ul.home li .stat {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background: linear-gradient(to bottom, #d7aefb, #a6c1ee, #7fc5ea, #f9e4a5, #f7c59f, #f6aa93, #f17c7c, #f46b45);
     margin: 15% auto; /* Centruoja modalinį langą ekrano horizontaliai */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Nustato modalinio lango plotį */
+    border-radius: 1rem;
 }
 
 .close {
-    color: #aaa;
+
     float: right;
     font-size: 28px;
     font-weight: bold;
+    padding: 20px;
+
 }
 
 .close:hover,

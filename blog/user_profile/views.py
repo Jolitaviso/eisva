@@ -35,7 +35,6 @@ def user_detail_current(request: HttpRequest, username: str | None = None)  -> H
         user = request.user
     return render(request, 'user_profile/user_detail_current.html', {
         'object': user,
-        'description': user.profile.description,
     })
     
 @login_required
@@ -69,7 +68,7 @@ class MessageCreateView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self) -> str:
         messages.success(self.request, _('message created successfully').capitalize())
-        return reverse('message_list_send')
+        return reverse('message_list_sent')
     
     def form_valid(self, form):
         form.instance.sender = self.request.user
@@ -77,7 +76,7 @@ class MessageCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
 @login_required
-def message_list_send(request: HttpRequest) -> HttpResponse:
+def message_list_sent(request: HttpRequest) -> HttpResponse:
     user = request.user
     user_messages = models.Message.objects.filter(sender=user)
 
@@ -87,13 +86,13 @@ def message_list_send(request: HttpRequest) -> HttpResponse:
         user_messages = user_messages.filter(receiver=receiver)
 
     context = {
-        'message_list_send': user_messages,
+        'message_list_sent': user_messages,
         'user_list': get_user_model().objects.all().order_by('username'),
-        'next': reverse('message_list_send') + '?' + \
+        'next': reverse('message_list_sent') + '?' + \
             '&'.join([f"{key}={value}" for key, value in request.GET.items()]),
         'no_matches': not user_messages.exists(),
     }
-    return render(request, 'user_profile/message_list_send.html', context)
+    return render(request, 'user_profile/message_list_sent.html', context)
 
 @login_required
 def message_list_received(request: HttpRequest) -> HttpResponse:
