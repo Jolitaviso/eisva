@@ -18,4 +18,5 @@ urlpatterns = [
     path('communication/<int:pk>/like/', views.communication_like, name='communication_like'),   
     path('comment/create/', views.comment_create, name='comment_create'), 
     path('communication/<int:pk>/comment/<int:comment_pk>/', views.comment_detail, name='comment_detail'),
+
 ]

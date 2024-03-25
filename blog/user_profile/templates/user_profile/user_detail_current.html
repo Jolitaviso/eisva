@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load i18n %}
+{% extends "base.html" %}{% load i18n %} {% load static %}
 {% block title %}{{ object }} {% trans "at" %} {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>{% trans "user"|title %} {{ object.username }}</h1>
@@ -6,7 +6,7 @@
     {% if object.profile.picture %}
     <img src="{{ object.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-right: 10px;">
     {% else %}
-    <div class="no-picture-placeholder" style="border-radius: 50%; width: 200px; height: 200px; background-color: white;"></div>
+    <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|title %}"  style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-right: 10px;">
     {% endif %}
     <div style="display: inline-block; vertical-align: top;">
         <p style="font-weight: bold; font-size: 24px;">{{ object.first_name }} {{ object.last_name }}</p>
@@ -16,7 +16,9 @@
         <p style="font-size: 24px;">{% trans "e-mail"|capfirst %}: {{ object.email }}</p>
     </div>    
     <div style="display: inline-block; vertical-align: top;">
+        {% if object == request.user %}
         <p><a class="button" href="{% url 'user_update' %}">{% trans "edit profile"|capfirst %}</a></p>
+        {% endif %}
     </div>   
 </div>
 <div class="box">
@@ -29,9 +31,51 @@
     {% endif %}
 </div>
 <p></p>
-    <div>
+    <!--<div>
 {% if object != request.user %}
-    <a href="{% url 'message_create' %}?receiver={{ object.username }}" class="button">{% trans "send"|capfirst %}</a>
+    <a href="{% url 'message_create' %}?receiver={{ object.username }}" class="button">{% trans "new message"|capfirst %}&#9998;</a>
 {% endif %}
+    </div>-->
+<script>
+    // Pasirūpiname, kad modalinio lango mygtukas veiktų
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('sendMessageModal');
+        var openButton = document.getElementById('openMessageModal');
+        var closeButton = document.getElementsByClassName('close')[0];
+
+        // Kai paspaudžiama atidarymo mygtukas, atidaromas modalinis langas
+        openButton.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        // Kai paspaudžiama uždarymo mygtukas, uždaromas modalinis langas
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Kai paspaudžiama bet kur vieta už modalinio lango ribų, uždaromas modalinis langas
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
+</script>
+<div id="sendMessageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>{% trans "Send Message" %}</h2>
+        <form id="messageForm">
+            <textarea id="messageTextarea" rows="4" cols="50" placeholder="{% trans "Write your message here..." %}"></textarea>
+            <button type="submit">{% trans "Send" %}</button>
+        </form>
     </div>
+</div>
+{% if object != request.user %}
+    <a id="openMessageModal" class="button">{% trans "new message"|capfirst %}&#9998;</a>
+{% endif %}
+
+    
+
+      
 {% endblock content %}

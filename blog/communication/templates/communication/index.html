@@ -1,12 +1,22 @@
 {% extends "base.html" %}{% load static i18n %}
 {% block content %}
 <h2>{% trans "common home"|capfirst %}</h2>
-<ul class="home">
+<!--<ul class="home">
     {% for metric in common_home %}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
         <h3>{{ metric.0 }}</h3>
         <span class="stat">{{ metric.1 }}</span>
         {% if metric.2 %}</a>{% endif %}</li>
+    {% endfor %}
+</ul>-->
+<ul class="home">
+    {% for metric in common_home %}
+    <li>
+        <a href="{% if metric.2 %}{{ metric.2 }}{% endif %}">
+            <h3>{{ metric.0 }}</h3>
+            <span class="stat">{{ metric.1 }}</span>
+        </a>
+    </li>
     {% endfor %}
 </ul>
 <h2>{% trans "user home"|title %}</h2>

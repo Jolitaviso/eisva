@@ -341,7 +341,7 @@ ul.home li .stat {
 }
 
 .communication-item, .message-room {
-    margin: 20px;
+    /*margin: 20px;*/
     padding: 10px;
     border: 1px solid #ffffff5f;
     border-radius: 25px;
@@ -372,7 +372,7 @@ ul.home li .stat {
 .message-sender img, .no-picture-placeholder {
     width: 50px;
     height: 50px;
-    margin: 20px;
+   /* margin: 20px;*/
   }
   
 
@@ -386,7 +386,7 @@ ul.home li .stat {
     font-family: cursive;
     font-size: 120%;
     font-weight: 700;
-    margin: 20px;
+    /*margin: 20px;*/
   }
   
   .message-image {
@@ -412,3 +412,38 @@ ul.home li .stat {
     right: 10px;
     cursor: pointer;
   }
+
+    /* Stiliai modaliniam langui */
+    .modal {
+    display: none; /* Pradžioje modalinis langas turi būti paslėptas */
+    position: fixed; /* Fixe pozicija, kad modalinis langas visada būtų viršuje */
+    z-index: 1; /* Nustato "z" indeksą, kad modalinis langas būtų viršuje */
+    left: 0;
+    top: 0;
+    width: 100%; /* Užima visą ekrano plotį */
+    height: 100%; /* Užima visą ekrano aukštį */
+    overflow: auto; /* Įgalina slankiojimą, jei modalinio lango turinys per didelis ekrano matmenims */
+    background-color: rgba(0,0,0,0.4); /* Tamsus fonas */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centruoja modalinį langą ekrano horizontaliai */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Nustato modalinio lango plotį */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

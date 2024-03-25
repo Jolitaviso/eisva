@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-    <h1>{% trans "User List"|capfirst %}</h1>
+    <h1>{% trans "user List"|capfirst %}</h1>
     <div class="user-blocks">
         {% for user in users %}
         <div class="user-block">
@@ -13,7 +13,7 @@
                     {% endif %}
                 <h2>{{ user.username }}</h2>
             </a>
-            <a href="{% url 'message_create' %}?receiver={{ user.username }}" class="create-message">Create Message</a>
+            <a href="{% url 'message_create' %}?receiver={{ user.username }}" class="create-message">create message</a>
         </div>
         {% empty %}
         <p>{% trans "no users found." %}</p> <!-- Jei sąrašas tuščias, rodomas pranešimas -->
