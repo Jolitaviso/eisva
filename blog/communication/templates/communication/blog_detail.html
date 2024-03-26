@@ -1,5 +1,5 @@
 {% extends "base.html" %}{% load i18n %}
-{% block title %}{{ blog.name }} | {{ block.super }}{% endblock title %}
+{% block title %}{{ blog.name }} {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>{{ blog.name }}</h1>
 <div>{% trans "owner" %}: <a href="{% url "user_detail" blog.owner.username %}">{{ blog.owner }}</a></div>

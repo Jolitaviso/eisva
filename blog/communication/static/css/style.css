@@ -267,8 +267,9 @@ ul.home {
 
 ul.home li {
     display: inline-block;
-    border: 2px solid #999999;
+    border: 1px solid #ffffff5f;
     border-radius: 1rem;
+    background: #ffffff2f;
 }
 
 ul.home li h3 {

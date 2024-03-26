@@ -4,16 +4,16 @@
 <h1>{% trans "user"|title %} {{ object.username }}</h1>
 <div>
     {% if object.profile.picture %}
-    <img src="{{ object.profile.picture.url }}" alt="{% trans "Profile Picture"|title %}" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-right: 10px;">
+    <img src="{{ object.profile.picture.url }}" alt="{% trans "profile picture"|capfirst %}" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-right: 10px;">
     {% else %}
     <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|title %}"  style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin-right: 10px;">
     {% endif %}
-    <div style="display: inline-block; vertical-align: top;">
+    <div style="display: inline-block; vertical-align: top; width: 400px;">
         <p style="font-weight: bold; font-size: 24px;">{{ object.first_name }} {{ object.last_name }}</p>
-        <p>{{ object.profile.description|safe }}</p>
+        <p style="font-size: 20px; "> {{ object.profile.description|safe }}</p>
     </div>
     <div style="display: inline-block; vertical-align: top;">
-        <p style="font-size: 24px;">{% trans "e-mail"|capfirst %}: {{ object.email }}</p>
+        <p style="font-size: 20px;">{% trans "e-mail"|capfirst %}: {{ object.email }}</p>
     </div>    
     <div style="display: inline-block; vertical-align: top;">
         {% if object == request.user %}
@@ -72,11 +72,13 @@
     </div>
 </div>
 
-<p><a class="button" href="{% url 'user_blogs' object.username %}">{% trans "View user's blogs"|capfirst %}</a></p>
+<p><a class="button" href="{% url 'user_blogs' object.username %}">{% trans "view all user's blogs"|capfirst %}</a></p>
 
-{% if object != request.user %}
+<p>{% if object != request.user %}
     <a id="openMessageModal" class="button">{% trans "new message"|capfirst %}&#9998;</a>
 {% endif %}
+</p>
+
 
     
 

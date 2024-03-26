@@ -1,7 +1,7 @@
 {% extends "base.html" %}{% load i18n %}
-{% block title %}{% trans "user's blogs"|capfirst %} | {{ object }} | {{ block.super }}{% endblock title %}
+{% block title %} {{ object }} {{ block.super }}{% endblock title %}
 {% block content %}
-    <h1>{% trans "user's blogs"|capfirst %} - {{ object }}</h1>
+<h1>{% trans "user's blogs"|capfirst %} {{ object.username }}</h1>
     {% if user_blogs %}
         <ul>
             {% for blog in user_blogs %}
@@ -9,6 +9,6 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>{% trans "This user has no blogs yet." %}</p>
+        <p>{% trans "this user has no blogs yet."|capfirst %}</p>
     {% endif %}
 {% endblock content %}

@@ -1,6 +1,16 @@
 {% extends "base.html" %}{% load static i18n %}
 {% block content %}
-<h2>{% trans "common home"|capfirst %}</h2>
+<h2>{% trans "about us"|capfirst %}</h2>
+<p style="font-family: sans-serif; font-size: 16px; line-height: 1.6; color: #333333; text-align: justify;"> 
+    Nuo mokyklos laikų, pamilau liaudiškas dainas ir taip kaip galima apdainuoti gyvenimą. 
+    Eisva mudu abudu, į žalią giružę abudu - nuostabiausias pavyzdys kaip su meile galima nudirbti darbus. 
+    O mano mokyklos ansamblis, kuriame yra daugiau nei šimtas narių, yra mano antra šeima.
+    Čia yra saugi aplinka augti, klysti, įsimylėti, išsiskirti, dalintis džiaugsmais ar skaudžiais išgyvenimais. 
+    Baigusi mokyklą, pradėjus bendrauti su griupiokais, bendradarbiais supratau, kad jie trūksta tokios saugios aplinkos.
+    Jie neturi galimybės jaustis priimti ir palaikomi savo kasdieniame gyvenime. 
+    Todėl mane įkvėpė kurti "Eisva mudu abudu" tinklaraštį, nes čia vieta, kur galima dalintis patirtais išgyvenimais, palaikyti, motyvuoti ir augti kartu.
+</p> 
+<h2>{% trans "how we grow"|capfirst %}</h2>
 <!--<ul class="home">
     {% for metric in common_home %}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}
@@ -19,7 +29,7 @@
     </li>
     {% endfor %}
 </ul>
-<h2>{% trans "user home"|title %}</h2>
+<h2>{% trans "your activity"|capfirst %}</h2>
 <ul class="home">
     {% for metric in user_home %}
     <li>{% if metric.2 %}<a href="{{ metric.2}}">{% endif %}

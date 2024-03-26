@@ -11,9 +11,10 @@
                     {% else %}
                     <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|title %}"  style="border-radius: 50%; width: 300px; height: 300px; object-fit: cover; margin-right: 10px;"class="no-profile-picture">
                     {% endif %}
-                <h2>{{ user.username }}</h2>
+                <h3 style="border-radius: 1rem; text-align: center; ">{{ user.username }}</h3>
             </a></a>
-            <a href="{% url 'message_create' %}?receiver={{ user.username }}" class="create-message">create message</a>
+            <p style="text-align: center;" >{{user.first_name}} {{user.last_name}}</p>
+            <a href="{% url 'message_create' %}?receiver={{ user.username }}" class="create-message">{% trans "create message"|capfirst %}</a>
         </div>
         {% empty %}
         <p>{% trans "no users found." %}</p>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}{% load static i18n %}
-{% block title %}{{ block.super }} | {{ communication }}{% endblock title %}
+{% block title %}{{ communication }} {{ block.super }} {% endblock title %}
 {% block content %}
 <div style="text-align: left;"> <h1><a href="{% url "blog_detail" communication.blog.pk  %}">{{ communication.blog }}</a><br>{{ communication.name }}</h1>
 <p>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></p>
