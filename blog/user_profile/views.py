@@ -11,7 +11,7 @@ from django.views import generic
 from . import models
 from . import forms
 from django.shortcuts import render
-from .models import Blog
+from communication.models import Blog
 
 
 User = get_user_model()
@@ -56,7 +56,6 @@ def user_update(request: HttpRequest) -> HttpResponse:
         'form_user': form_user,
         'form_profile': form_profile,
     }) 
-
 
 @login_required
 def user_list(request):
@@ -115,9 +114,7 @@ def message_list_received(request: HttpRequest) -> HttpResponse:
     }
     return render(request, 'user_profile/message_list_received.html', context)
 
-
-
-
 def user_blogs(request, username):
-    user_blogs = Blog.objects.filter(author__username=username)
-    return render(request, 'user_blogs.html', {'user_blogs': user_blogs})
+    user = get_user_model().objects.get(username=username)
+    user_blogs = Blog.objects.filter(owner=user)
+    return render(request, 'user_profile/user_blogs.html', {'user_blogs': user_blogs})

@@ -1,11 +1,11 @@
-{% extends "base.html" %}
-{% block title %}{% trans "User's blogs" %} | {{ object }} | {{ block.super }}{% endblock title %}
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "user's blogs"|capfirst %} | {{ object }} | {{ block.super }}{% endblock title %}
 {% block content %}
-    <h1>{% trans "User's blogs" %} - {{ object }}</h1>
+    <h1>{% trans "user's blogs"|capfirst %} - {{ object }}</h1>
     {% if user_blogs %}
         <ul>
             {% for blog in user_blogs %}
-                <li><a href="{% url 'blog_detail' blog.slug %}">{{ blog.title }}</a></li>
+                <li><a href="{% url "blog_detail" blog.pk %}">{{ blog.name }}</li>
             {% endfor %}
         </ul>
     {% else %}
