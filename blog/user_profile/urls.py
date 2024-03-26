@@ -10,5 +10,6 @@ urlpatterns = [
     path('received/', views.message_list_received, name='message_list_received'),  
     path('sent/', views.message_list_sent, name='message_list_sent'),  
     path('create/', views.MessageCreateView.as_view(), name='message_create'),
+    path('user/<str:username>/blogs/', views.user_blogs, name='user_blogs'),
     
 ]

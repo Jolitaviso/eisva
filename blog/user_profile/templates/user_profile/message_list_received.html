@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 {% load i18n %}
 
 {% block title %}{% trans "received messages" %} | {{ block.super }}{% endblock title %}
@@ -29,32 +29,32 @@
       <div class="message-room">
         <div class="message-sender">
           {% if sender.profile.picture %}
-            <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" class="profile-picture">
+            <img src="{{ sender.profile.picture.url }}" alt="{% trans "profile picture"|title %}" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover; margin-right: 10px;"class="profile-picture">
           {% else %}
-          <div class="no-picture-placeholder" style="border-radius: 50%; width: 50px; height: 50px; background-color: white;"></div>
+          <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|title %}" style="border-radius: 50%; width: 50px; width: 50px;  object-fit: cover; margin-right: 10px;"class="no-profile-picture">
             {% endif %}
           <a href="{% url 'user_detail' sender.username %}">
             <strong>{{ sender }}</strong>
           </a>
         </div>
         <div class="message-content">
-          <a class="message-text"> {{ message.text }}</a>
+          <p class="message-text"> <c style="font-family:cursive; font-size:120%; font-weight:700;">{{ message.text }}</c><br></p>
           {% if message.image %}
-            <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" class="message-image">
-          {% endif %}
+            <img src="{{ message.image.url }}" alt="{% trans "message image"|title %}" width="150" class="message-image">
+          {% endif %}            
         </div>
         <script>
           document.addEventListener('DOMContentLoaded', function() {
-            var images = document.querySelectorAll('.message-image'); // Pasirenkame visus elementus su klase "message-image"
+            var images = document.querySelectorAll('.message-image');
         
             images.forEach(function(image) {
               image.addEventListener('click', function() {
-                this.classList.toggle('enlarged'); // Pridedame arba pašaliname klasę "enlarged" paspaudus ant nuotraukos
+                this.classList.toggle('enlarged');
               });
             });
           });
         </script>
-        <div class="message-details">
+      <div class="message-details">
           <p> {{ message.timestamp }}</p>
         </div>
       </div>

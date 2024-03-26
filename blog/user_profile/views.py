@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.views import generic
 from . import models
 from . import forms
+from django.shortcuts import render
+from .models import Blog
 
 
 User = get_user_model()
@@ -112,3 +114,10 @@ def message_list_received(request: HttpRequest) -> HttpResponse:
         'no_matches': not user_messages.exists(),
     }
     return render(request, 'user_profile/message_list_received.html', context)
+
+
+
+
+def user_blogs(request, username):
+    user_blogs = Blog.objects.filter(author__username=username)
+    return render(request, 'user_blogs.html', {'user_blogs': user_blogs})

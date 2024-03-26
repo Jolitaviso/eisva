@@ -71,6 +71,9 @@
         </form>
     </div>
 </div>
+
+<p><a class="button" href="{% url 'user_blogs' object.username %}">{% trans "View user's blogs"|capfirst %}</a></p>
+
 {% if object != request.user %}
     <a id="openMessageModal" class="button">{% trans "new message"|capfirst %}&#9998;</a>
 {% endif %}

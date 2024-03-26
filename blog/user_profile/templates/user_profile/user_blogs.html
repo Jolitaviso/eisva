@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{% trans "User's blogs" %} | {{ object }} | {{ block.super }}{% endblock title %}
+{% block content %}
+    <h1>{% trans "User's blogs" %} - {{ object }}</h1>
+    {% if user_blogs %}
+        <ul>
+            {% for blog in user_blogs %}
+                <li><a href="{% url 'blog_detail' blog.slug %}">{{ blog.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% trans "This user has no blogs yet." %}</p>
+    {% endif %}
+{% endblock content %}

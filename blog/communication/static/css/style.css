@@ -311,23 +311,6 @@ ul.home li .stat {
     background: #ffffff2f;
 }
 
-.profile-picture, .no-profile-picture{
-    object-fit: cover; 
-}
-
-.no-picture-placeholder {
-    width: 300px; /* Nustatome plotį */
-    height: 300px; /* Nustatome aukštį */
-    background-color: #ffffff9f; /* Nustatome baltą spalvą */
-    border-radius: 50%; /* Apsibrėžiame apskritimo formą */
-    border: 2px solid black; /* Pridedame rėmelį */
-    /* Galite pridėti papildomų stilių pagal savo poreikius */
-    display: flex; /* Naudojame lankstų išdėstymą */
-    justify-content: center; /* Centruojame horizontaliai */
-    align-items: center; /* Centruojame vertikaliai */
-}
-
-
 .create-message{
     display: block;
     margin-top: 10px;
@@ -335,7 +318,7 @@ ul.home li .stat {
 }
 
 .communication-item, .message-room {
-    /*margin: 20px;*/
+    margin: 20px;
     padding: 10px;
     border: 1px solid #ffffff5f;
     border-radius: 25px;
@@ -358,17 +341,10 @@ ul.home li .stat {
     flex-direction: row;
   }*/
   
-  .message-sender {
+  .message-sender, .message-receiver {
     display: flex;
     align-items: center; 
   }
-  
-.message-sender img, .no-picture-placeholder {
-    width: 50px;
-    height: 50px;
-   /* margin: 20px;*/
-  }
-  
 
   .message-details {
     margin-top: 10px;
@@ -385,27 +361,27 @@ ul.home li .stat {
   
   .message-image {
     cursor: pointer;
-    max-width: 100px; /* maksimalus plotis */
-    max-height: 100px; 
   }
 
   .enlarged {
-    position: fixed; /* Pastumia nuotrauką į ekraną, net jei slankiojate */
+    position: fixed; 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    margin: auto; /* Centruoja nuotrauką horizontaliai ir vertikaliai */
-    z-index: 9999; /* Padidina "z" indeksą, kad nuotrauka būtų viršuje */
-    max-width: 90%; /* Apriboja didžiausią nuotraukos dydį */
+    margin: auto; 
+    z-index: 9999; 
+    width: auto;  
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Tamsus fono sluoksnis */
+    max-width: 90%;
     max-height: 90%;
+    filter: blur(0);
+    transition: filter 0.5s;
+
   }
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-  }
+
+
 
     /* Stiliai modaliniam langui */
     .modal {
