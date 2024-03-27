@@ -263,13 +263,18 @@ ul.home {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: center;
 }
 
 ul.home li {
     display: inline-block;
+    width: 300px;
+    margin: 10px;
+    padding: 10px;
     border: 1px solid #ffffff5f;
-    border-radius: 1rem;
+    border-radius: 25px;
     background: #ffffff2f;
+
 }
 
 ul.home li h3 {
@@ -284,12 +289,17 @@ ul.home li .stat {
     font-weight: 700;
     margin: 1rem;
     padding: 0.5rem;
-    background-color: #ffffff9f;
-    border-radius: 5rem;
-    min-width: 7rem;
+    background-color: #ffffff7f;
+    border-radius: 50%;
+ 
 }
 
-.user-content {
+.video-container {
+    display: flex;
+    justify-content: center;
+}
+
+.user-content  {
     background-color: #ffffff7f;
     border: 2px solid #999999;
     border-radius: 1rem;
@@ -301,6 +311,7 @@ ul.home li .stat {
 .user-blocks {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .user-block {
@@ -324,6 +335,7 @@ ul.home li .stat {
     border: 1px solid #ffffff5f;
     border-radius: 25px;
     background: #ffffff2f;
+    display: block;
 }
 
 .communication-item .communication-description {
@@ -335,12 +347,6 @@ ul.home li .stat {
     display: flex;
     flex-direction: column;
   }
-  
-  /*.message-room {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: row;
-  }*/
   
   .message-sender, .message-receiver {
     display: flex;
@@ -382,8 +388,6 @@ ul.home li .stat {
 
   }
 
-
-
     /* Stiliai modaliniam langui */
     .modal {
     display: none; /* Pradžioje modalinis langas turi būti paslėptas */
@@ -420,4 +424,40 @@ ul.home li .stat {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.comment-room {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-text p {
+    margin: 0;
+}
+.comment-date {
+    margin-top: 20px;
+}
+
+.comment-date p {
+    margin: 0;
 }

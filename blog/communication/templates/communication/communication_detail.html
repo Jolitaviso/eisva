@@ -3,15 +3,22 @@
 {% block content %}
 <div style="text-align: left;"> <h1><a href="{% url "blog_detail" communication.blog.pk  %}">{{ communication.blog }}</a><br>{{ communication.name }}</h1>
 <p>{% trans "owner" %}: <a href="{% url "user_detail" communication.owner.username %}">{{ communication.owner }}</a></p>
-<div style="text-align: right; font-size: 30px;">
-    <div>{% if request.user.is_authenticated %}
-    <a href="{% url 'communication_like' communication.pk %}?next={{ request.path }}">&#9829;&#65039;</a>
+    <p>{% if request.user.is_authenticated %}
+        <a style="font-size: 60px;" href="{% url 'communication_like' communication.pk %}?next={{ request.path }}">&#9829;&#65039;</a>
     {% else %}
-    &#128077;
+        &#9829;
+    {% endif %}   
+    {% if communication.likes.count == 0 %}
+        {% trans "no loves yet" %}
+    {% else %}
+        {{ communication.likes.count }}
+        {% if communication.likes.count == 1 %}
+            {% trans "user loves it" %}
+        {% else %}
+            {% trans "users love it" %}
+        {% endif %}
     {% endif %}
-    {{communication.likes.count }}
-    </div>
-</div>
+</p>
 </div>
 {% if communication.youtube_video %}
 <div class='tube'>
@@ -38,44 +45,37 @@
     {% endif %}
 </p>
 </h>
-<a class="button" href="{% url 'comment_create' %}">{% trans "add"|capfirst %}</a>
-
-<h2>{% trans "comments"|capfirst %}</h2>
-{% if not communication.comments.all %}
-    <p>{% trans "no comments yet..."|capfirst %}</p>
-{% else %}
-    <ul>
-        {% for comment in communication.comments.all %}
-            <li>
-                <strong>{{ comment.title }} - {{ comment.created_at }}</strong><br>
-                {{ comment.note }}
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-
-
-<!--
-<h2> Comments... </h2>
-{% if not communication.comments.all %}
-No Comments Yet...<a href="#">
-Add One</a>
-{% else %}
-    {% for comment in communication.comments.all %}
-        <strong>
-            {{ comment.title }} - {{ comment.created_at}}
-        <strong>
-        <br/>
-        {{ comment.note }}
-    {% endfor %}
-{% endif %}
-
-<img src="{% static "img/a.jpg" %}" width="377" height="377">
+<div>
+    <h2>{% trans "comments"|capfirst %}</h2>
+    <a class="button" href="{% url 'comment_create' %}">{% trans "add"|capfirst %}</a>
+    <div class="comment-room">
+        {% if not communication.comments.all %}
+            <p>{% trans "no comments yet..."|capfirst %}</p>
+        {% else %}
+            {% for comment in communication.comments.all %}
+                <div class="comment">
+                    <div class="profile-picture">
+                        {% if commentator.profile.picture %}
+                            <img src="{{ commentator.profile.picture.url }}" alt="{% trans "profile picture"|capfirst%}">
+                        {% else %}
+                            <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|capfirst %}">
+                        {% endif %}
+                    </div>
+                    <div class="comment-details">
+                        <div class="user-info">
+                            <a href="{% url "user_detail" comment.owner.username %}">{{ comment.owner }}</a>
+                            <span>{{ comment.created_at }}</span>
+                        </div>
+                        <div class="comment-text">
+                            <p>{{ comment.note }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="comment-date">
+        <p>{% trans "comment date"|capfirst %}: {{ comment.created_at }}</p>
+    </div>
+</div>
 {% endblock content %}
-<form method="post" action="{% url 'comment_create' %}">
-    {% csrf_token %}
-    <input type="hidden" name="communication_id" value="{{ communication.pk }}">
-    <textarea name="content" placeholder="Įveskite savo komentarą"></textarea>
-    <button type="submit">Pateikti komentarą</button>
-</form> -->
