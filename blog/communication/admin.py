@@ -62,18 +62,20 @@ class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ['id', 'created_at', 'updated_at']
     autocomplete_fields = ['communication', 'owner']
     fieldsets = (
-        (_("general").title(), {
+        (_("general"), {
             "fields": (
                 'title',
                 'note',
+                'image',
             ),
         }),
-        (_("ownership").title(), {
+        (_("ownership"), {
             "fields": (
                 'owner',
+                'communication'
             ),
         }),
-        (_("temporal tracking").title(), {
+        (_("temporal tracking"), {
             "fields": (
                 ('created_at', 'updated_at', 'id'),
             ),

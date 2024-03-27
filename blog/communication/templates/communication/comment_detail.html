@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment Detail</title>
-</head>
-<body>
-    <h1>Comment Detail</h1>
-    <p><strong>Author:</strong> {{ comment.author }}</p>
-    <p><strong>Content:</strong> {{ comment.content }}</p>
-    <p><strong>Created:</strong> {{ comment.created }}</p>
-    <!-- Jei norite pridėti daugiau informacijos apie komentarą, galite tai padaryti čia -->
-</body>
-</html>
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "create a detail"|capfirst %} {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>{% trans "comment detail"|capfirst %}</h1>
+<h3>{{ comment.title }}</h3>
+    <p><strong>{% trans "created at:"|capfirst %}</strong> {{ comment.created_at }}</p>
+    <p>{{ comment.note }}</p>
+{% if comment.owner == request.user or request.user.is_superuser %} 
+<a class="button" href="{% url "comment_edit" comment.pk %}">{% trans "edit"|capfirst %}</a>
+<a class="button" href="{% url 'comment_delete' comment.pk %}">{% trans "delete"|capfirst %}</a>
+{% endif %}
+{% endblock content %}

@@ -247,10 +247,45 @@ def comment_create(request):
         note = request.POST.get('note')
         owner = request.user 
         communication = get_object_or_404(models.Communication, pk=communication_pk)
-        models.Comment.objects.create(communication=communication, owner=owner, note=note)
+        parent_comment_pk = request.POST.get('parent_comment_pk')
+        parent_comment = None
+        if parent_comment_pk:
+            parent_comment = get_object_or_404(models.Comment, pk=parent_comment_pk)
+        models.Comment.objects.create(communication=communication, owner=owner, note=note, parent_comment=parent_comment)
         return redirect('communication_detail', pk=communication_pk)
+    else:
+        # Jei metodas yra GET, grąžinkite šabloną sukuriantį komentaro forma
+        return render(request, 'comment_create.html')
     
 def comment_detail(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'communication/comment_detail.html', {
         'comment': get_object_or_404(models.Comment, pk=pk),
     })
+    
+@login_required
+def comment_edit(request: HttpRequest, pk: int) -> HttpResponse:
+    comment = get_object_or_404(models.Comment, pk=pk, owner=request.user)
+    if request.method == "POST":
+        form = forms.CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("comment edited successfully").capitalize())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('comment_list')
+    else:
+        form = forms.CommentForm(instance=comment)
+    form.fields['communication'].queryset = models.Communication.objects.all()
+    return render(request, 'comment/comment_edit.html', {'form': form})
+
+@login_required
+def comment_delete(request: HttpRequest, pk: int) -> HttpResponse:
+    comment = get_object_or_404(models.Comment, pk=pk, owner=request.user)
+    if request.method == "POST":
+        communication_pk = comment.communication.pk  # Preserve the communication's PK before deleting the comment
+        comment.delete()
+        messages.success(request, _("Comment deleted successfully").capitalize())
+        if request.GET.get('next'):
+            return redirect(request.GET.get('next'))
+        return redirect('communication_detail', pk=communication_pk)
+    return render(request, "comment/comment_delete.html", {'comment': comment, 'object': comment})

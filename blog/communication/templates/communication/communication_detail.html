@@ -38,6 +38,25 @@
     {% endif %}
 </p>
 </h>
+<a class="button" href="{% url 'comment_create' %}">{% trans "add"|capfirst %}</a>
+
+<h2>{% trans "comments"|capfirst %}</h2>
+{% if not communication.comments.all %}
+    <p>{% trans "no comments yet..."|capfirst %}</p>
+{% else %}
+    <ul>
+        {% for comment in communication.comments.all %}
+            <li>
+                <strong>{{ comment.title }} - {{ comment.created_at }}</strong><br>
+                {{ comment.note }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+<!--
 <h2> Comments... </h2>
 {% if not communication.comments.all %}
 No Comments Yet...<a href="#">
@@ -52,11 +71,11 @@ Add One</a>
     {% endfor %}
 {% endif %}
 
-<!--<img src="{% static "img/a.jpg" %}" width="377" height="377"> -->
+<img src="{% static "img/a.jpg" %}" width="377" height="377">
 {% endblock content %}
 <form method="post" action="{% url 'comment_create' %}">
     {% csrf_token %}
     <input type="hidden" name="communication_id" value="{{ communication.pk }}">
     <textarea name="content" placeholder="Įveskite savo komentarą"></textarea>
     <button type="submit">Pateikti komentarą</button>
-</form> 
+</form> -->

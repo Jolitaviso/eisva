@@ -69,6 +69,7 @@ class Communication(models.Model):
 class Comment(models.Model):
     title = models.CharField(_("title"), max_length=200, db_index=True)
     note = models.TextField(_("note"), blank=True, max_length=10000)
+    image = models.ImageField(_("image"), upload_to='comment_images/', blank=True, null=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
     created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
     owner = models.ForeignKey(
@@ -84,9 +85,21 @@ class Comment(models.Model):
         related_name='comments',
         null=True,
     )
-
+    
+    parent_comment = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        related_name='replies',
+        null=True,
+        blank=True
+    )
+    
     def __str__(self):
-        return self.title
+         return "{} {} {}".format(
+            self.communication,
+            _("commented by"),
+            self.owner,
+        )
     
     class Meta:
         verbose_name = _("comment")

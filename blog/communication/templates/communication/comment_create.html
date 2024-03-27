@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Comment</title>
-</head>
-<body>
-    <h1>Create Comment</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "create a comment at"|capfirst %} {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>{% trans "create a comment"|capfirst %} {{ form.communication.value }}</h1>
+<form method="post" action="{{ request.path }}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><button type="submit">{% trans "create"|capfirst %}</button></p>
+    <p> {% if comment.image %}
+        <img src="{{ comment.image.url }}" alt={% trans "comment image"|capfirst %} width="250">
+        {% endif %}
+    </p>
+</form>
+{% endblock content %}

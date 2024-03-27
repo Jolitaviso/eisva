@@ -13,3 +13,9 @@ class CommunicationForm(forms.ModelForm):
         widgets = {
             'updated_at': DateInput,
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = models.Comment
+        fields = ['id', 'title', 'note', 'communication', 'parent_comment']

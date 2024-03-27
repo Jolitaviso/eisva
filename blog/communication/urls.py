@@ -17,6 +17,7 @@ urlpatterns = [
     path('communication/create/<int:blog_id>/', views.communication_create, name='communication_create'),
     path('communication/<int:pk>/like/', views.communication_like, name='communication_like'),   
     path('comment/create/', views.comment_create, name='comment_create'), 
-    path('communication/<int:pk>/comment/<int:comment_pk>/', views.comment_detail, name='comment_detail'),
-
+    path('comment/<int:pk>/', views.comment_detail, name='comment_detail'),
+    path('comment/<int:pk>/edit/', views.comment_edit, name='comment_edit'),
+    path('comment/<int:pk>/delete/', views.comment_delete, name='comment_delete'),
 ]
