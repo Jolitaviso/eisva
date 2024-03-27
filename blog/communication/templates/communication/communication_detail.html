@@ -47,35 +47,32 @@
 </h>
 <div>
     <h2>{% trans "comments"|capfirst %}</h2>
+    <div class="toolbar">
     <a class="button" href="{% url 'comment_create' %}">{% trans "add"|capfirst %}</a>
+    </div><br>
     <div class="comment-room">
         {% if not communication.comments.all %}
             <p>{% trans "no comments yet..."|capfirst %}</p>
         {% else %}
             {% for comment in communication.comments.all %}
                 <div class="comment">
-                    <div class="profile-picture">
-                        {% if commentator.profile.picture %}
-                            <img src="{{ commentator.profile.picture.url }}" alt="{% trans "profile picture"|capfirst%}">
+                        {% if comment.owner.profile.picture %}
+                            <img src="{{ comment.owner.profile.picture.url }}" alt="{% trans "profile picture"|capfirst%}" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover; margin: 10px;" class="profile-picture">
                         {% else %}
-                            <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|capfirst %}">
+                            <img src="{% static 'img/default_profile_picture.jpg' %}" alt="{% trans "no profile picture"|capfirst %}" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover; margin: 10px;"class="no-profile-picture">
                         {% endif %}
-                    </div>
                     <div class="comment-details">
                         <div class="user-info">
-                            <a href="{% url "user_detail" comment.owner.username %}">{{ comment.owner }}</a>
-                            <span>{{ comment.created_at }}</span>
+                            <a href="{% url "user_detail" comment.owner.username %}">{{ comment.owner }} [{{comment.owner.first_name}} {{comment.owner.last_name}}]</a> - <span style= "font-style: italic;">{{comment.title}}</span>
                         </div>
-                        <div class="comment-text">
-                            <p>{{ comment.note }}</p>
+                        <div style= "margin: 1rem 0;" class="comment-text">
+                            <span>{{ comment.note }}</span>
                         </div>
+                    <span style="font-size: 12px;" >{{ comment.created_at }}</span>
                     </div>
                 </div>
             {% endfor %}
         {% endif %}
-    </div>
-    <div class="comment-date">
-        <p>{% trans "comment date"|capfirst %}: {{ comment.created_at }}</p>
     </div>
 </div>
 {% endblock content %}
