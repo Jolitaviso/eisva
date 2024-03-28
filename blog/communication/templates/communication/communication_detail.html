@@ -48,8 +48,9 @@
 <div>
     <h2>{% trans "comments"|capfirst %}</h2>
     <div class="toolbar">
-    <a class="button" href="{% url 'comment_create' %}">{% trans "add"|capfirst %}</a>
-    </div><br>
+        {% if communication.owner == request.user %}
+            <a class="button" href="{% url "comment_create" %}?next={{ request.GET.next|urlencode }}">
+        {% endif %}
     <div class="comment-room">
         {% if not communication.comments.all %}
             <p>{% trans "no comments yet..."|capfirst %}</p>

@@ -183,8 +183,17 @@ def communication_create(request: HttpRequest) -> HttpResponse:
                 return redirect(request.GET.get('next'))
             return redirect('communication_list')
     else:
-        form = forms.CommunicationForm()
-    form.fields['blog'].queryset = models.Blog.objects.all()
+        blog_name = request.GET.get('blog')
+        if blog_name:
+            try:
+                blog = models.Blog.objects.get(name=blog_name)
+            except models.Blog.DoesNotExist:
+                messages.error(request, _("Blog not found"))
+            else:
+                form = forms.CommunicationForm(initial={'blog': blog})
+        else:
+            form = forms.CommunicationForm()
+        form.fields['blog'].queryset = models.Blog.objects.all()
     #form.fields['blog'].queryset = form.fields['blog'].queryset.filter(owner=request.user)
     return render(request, 'communication/communication_create.html', {'form': form})
 

@@ -335,6 +335,7 @@ ul.home li .stat {
     border-radius: 25px;
     background: #ffffff2f;
     display: block;
+    margin-bottom: 20px;
 }
 
 .communication-item .communication-description {
@@ -428,5 +429,4 @@ ul.home li .stat {
 
 .comment {
     display: flex;
-    margin-bottom: 20px;
 }
