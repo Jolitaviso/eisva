@@ -31,7 +31,7 @@
     </li><br>
 {% for communication in communication_list %}
     <li>
-        <span style="float:left;"><a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }} &nbsp;</a></span>
+        <span style="float:left;"><a href="{% url 'communication_detail' communication.pk %}">{{ communication.name }} ({{ communication.comments.count }})&nbsp;</a></span>
         <span style="float:right;"><a href="{% url 'user_detail' communication.owner.username %}">{{ communication.owner }}</a></span>
         <!--<span style="float:right;">{{ communication.description|slice:":50"|safe}}</span>-->
     </li>
@@ -39,10 +39,10 @@
     <li>{% trans "no communication found"|title %}</li>
 {% endfor %}
 </ul>
-
+<!--
 <div class ='nice'>
     <div class='fog'>
         {% trans "thanks and good day"|capfirst %}
     </div>
-</div>
+</div>-->
 {% endblock content %}

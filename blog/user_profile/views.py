@@ -71,26 +71,11 @@ class MessageCreateView(LoginRequiredMixin, generic.CreateView):
         messages.success(self.request, _('message created successfully').capitalize())
         return reverse('message_list_sent')
     
-    # def get(self, request, *args, **kwargs):
-    #     # Jūsų esama get() metodo logika (jei yra)
-
-    #     profile_id = request.session.get('profile_id')
-    #     if profile_id:
-    #         try:
-    #             profile = models.Profile.objects.get(pk=profile_id)
-    #         except models.Profile.DoesNotExist:
-    #             messages.error(request, _("Profile not found"))
-    #         else:
-    #             self.object = forms.MessageForm(initial={'recipient': profile})  # Pritaikykite formą
-    #     else:
-    #         self.object = forms.MessageForm()  # Sukurkite tuščią formą
-
-    #     return self.render_to_response(self.get_context_data(object=self.object))
-    
     def form_valid(self, form):
         form.instance.sender = self.request.user
         form.instance.save()
         return super().form_valid(form)
+  
 
 @login_required
 def message_list_sent(request: HttpRequest) -> HttpResponse:

@@ -299,7 +299,7 @@ ul.home li .stat {
     justify-content: center;
 }
 
-.user-content  {
+.user-content {
     background-color: #ffffff7f;
     border: 2px solid #999999;
     border-radius: 1rem;
@@ -329,13 +329,18 @@ ul.home li .stat {
     text-align: center;
 }
 
-.communication-item, .message-room, .comment {
+.communication-item, .message-room, .comment , .blog-room {
     padding: 10px;
     border: 1px solid #ffffff5f;
     border-radius: 25px;
     background: #ffffff2f;
     display: block;
     margin-bottom: 20px;
+}
+
+.user-blog{
+    margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .communication-item .communication-description {
