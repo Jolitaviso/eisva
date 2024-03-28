@@ -250,7 +250,33 @@ def communication_like(request: HttpRequest, pk: int) -> HttpResponse:
     return redirect('communication_list')
 
 @login_required
-def comment_create(request):
+def comment_create(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            form.instance.owner = request.user
+            form.save()
+            messages.success(request, _("comment created successfully").capitalize())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('next'))
+            return redirect('communication_list')
+    else:
+        communication_name = request.GET.get('communication')
+        if communication_name:
+            try:
+                communication = models.Communication.objects.get(name=communication_name)
+            except models.Communication.DoesNotExist:
+                messages.error(request, _("Communication not found"))
+            else:
+                form = forms.CommentForm(initial={'communication': communication})
+        else:
+            form = forms.CommentForm()
+        form.fields['communication'].queryset = models.Communication.objects.all()
+    return render(request, 'communication/comment_create.html', {'form': form})
+
+
+
+'''def comment_create(request):
     if request.method == 'POST':
         communication_pk = request.POST.get('communication_pk')
         note = request.POST.get('note')
@@ -264,7 +290,7 @@ def comment_create(request):
         return redirect('communication_detail', pk=communication_pk)
     else:
         # Jei metodas yra GET, grąžinkite šabloną sukuriantį komentaro forma
-        return render(request, 'comment_create.html')
+        return render(request, 'communication/comment_create.html')'''
     
 def comment_detail(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'communication/comment_detail.html', {
@@ -285,7 +311,7 @@ def comment_edit(request: HttpRequest, pk: int) -> HttpResponse:
     else:
         form = forms.CommentForm(instance=comment)
     form.fields['communication'].queryset = models.Communication.objects.all()
-    return render(request, 'comment/comment_edit.html', {'form': form})
+    return render(request, 'communication/comment_edit.html', {'form': form})
 
 @login_required
 def comment_delete(request: HttpRequest, pk: int) -> HttpResponse:
@@ -297,4 +323,4 @@ def comment_delete(request: HttpRequest, pk: int) -> HttpResponse:
         if request.GET.get('next'):
             return redirect(request.GET.get('next'))
         return redirect('communication_detail', pk=communication_pk)
-    return render(request, "comment/comment_delete.html", {'comment': comment, 'object': comment})
+    return render(request, "communication/comment_delete.html", {'comment': comment, 'object': comment})

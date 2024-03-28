@@ -14,7 +14,6 @@ urlpatterns = [
     path('communication/<int:pk>/edit/', views.communication_update, name='communication_update'),
     path('communication/<int:pk>/delete/', views.communication_delete, name='communication_delete'),
     path('blog/<int:pk>/like/', views.blog_like, name='blog_like'),
-    path('blog/<slug:blog_name>/create_communication/', views.communication_create, name='communication_create'),
     path('communication/<int:pk>/like/', views.communication_like, name='communication_like'),   
     path('comment/create/', views.comment_create, name='comment_create'), 
     path('comment/<int:pk>/', views.comment_detail, name='comment_detail'),

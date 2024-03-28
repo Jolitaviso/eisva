@@ -18,4 +18,5 @@ class CommunicationForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = models.Comment
-        fields = ['id', 'title', 'note', 'communication', 'parent_comment']
+        fields = ['id', 'title', 'note', 'image','communication', 'parent_comment']
+        
