@@ -23,6 +23,7 @@ class Blog(models.Model):
         help_text =_("from Youtube's video URL copy the part after 'https://www.youtube.com/watch?v='.")
     )
 
+
     class Meta:
         verbose_name = _("blog")
         verbose_name_plural = _("blogs")
@@ -65,6 +66,7 @@ class Communication(models.Model):
 
     def get_absolute_url(self):
         return reverse("communication_detail", kwargs={"pk": self.pk})
+    
     
 class Comment(models.Model):
     title = models.CharField(_("title"), max_length=200, db_index=True)
@@ -109,6 +111,7 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse("comment_detail", kwargs={"pk": self.pk})
     
+    
 class BlogLike(models.Model):
     blog = models.ForeignKey(
         Blog, 
@@ -133,6 +136,7 @@ class BlogLike(models.Model):
     def get_absolute_url(self):
         return reverse("blog_like_detail", kwargs={"pk": self.pk})
 
+
 class CommunicationLike(models.Model):
     communication = models.ForeignKey(
         Communication, 
@@ -146,6 +150,7 @@ class CommunicationLike(models.Model):
         on_delete=models.CASCADE,
         related_name='communication_likes',
     )
+    
     
     class Meta:
         verbose_name = _("communication like")

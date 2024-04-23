@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-28 23:45+0200\n"
+"POT-Creation-Date: 2024-04-23 12:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,117 +20,443 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
-#: communication/admin.py:18 communication/admin.py:46
-#: communication/admin.py:71
+#: communication/admin.py:19 communication/admin.py:50
+#: communication/admin.py:78
 msgid "temporal tracking"
 msgstr "laikinas sekimas"
 
-#: communication/admin.py:25
+#: communication/admin.py:26
 msgid "recent communications"
 msgstr "recent communications"
 
-#: communication/admin.py:35 communication/admin.py:60
+#: communication/admin.py:38 communication/admin.py:65
 msgid "general"
 msgstr "bendras"
 
-#: communication/admin.py:41 communication/admin.py:66
+#: communication/admin.py:44 communication/admin.py:72
 msgid "ownership"
 msgstr "nuosavybė"
 
-#: communication/apps.py:7 communication/models.py:53
-#: communication/models.py:74 communication/templates/base.html:17
-#: communication/templates/communication/index.html:12
+#: communication/apps.py:8 communication/models.py:63
+#: communication/models.py:86 communication/models.py:143
+#: communication/templates/base.html:23
 msgid "communication"
 msgstr "pranešimas"
 
-#: communication/models.py:8 communication/models.py:32
+#: communication/models.py:9 communication/models.py:42
+#: communication/templates/communication/communication_list.html:29
 msgid "name"
 msgstr "pavadinimas"
 
-#: communication/models.py:9 communication/models.py:33
+#: communication/models.py:10 communication/models.py:43
 msgid "description"
 msgstr "aprašymas"
 
-#: communication/models.py:10 communication/models.py:47
-#: communication/models.py:63
+#: communication/models.py:11 communication/models.py:57
+#: communication/models.py:75
 msgid "updated at"
 msgstr "atnaujinta"
 
-#: communication/models.py:11 communication/models.py:46
-#: communication/models.py:64
+#: communication/models.py:12 communication/models.py:56
+#: communication/models.py:76
 msgid "created at"
 msgstr "sukurta"
 
-#: communication/models.py:15 communication/models.py:43
-#: communication/models.py:68
+#: communication/models.py:16 communication/models.py:53
+#: communication/models.py:80
+#: communication/templates/communication/blog_detail.html:5
+#: communication/templates/communication/communication_detail.html:5
+#: communication/templates/communication/communication_list.html:30
 msgid "owner"
 msgstr "savininkas"
 
-#: communication/models.py:23 communication/models.py:37
+#: communication/models.py:20
+msgid "Youtube video"
+msgstr "Youtube vaizdo įrašą"
+
+#: communication/models.py:23
+msgid ""
+"from Youtube's video URL copy the part after 'https://www.youtube.com/watch?"
+"v='."
+msgstr "iš YouTube vaizdo įrašo URL nukopijuokite dalį po 'https://www.youtube.com/watch?"
+"v='."
+
+#: communication/models.py:28 communication/models.py:47
+#: communication/models.py:118 communication/templates/base.html:22
 msgid "blog"
 msgstr "tinklaraštis"
 
-#: communication/models.py:24
+#: communication/models.py:29
+#: communication/templates/communication/blog_list.html:2
+#: communication/templates/communication/blog_list.html:4
+#: communication/views.py:110 communication/views.py:124
 msgid "blogs"
 msgstr "tinklaraščiai"
 
-#: communication/models.py:54
+#: communication/models.py:64
+#: communication/templates/communication/blog_detail.html:38
+#: communication/views.py:115 communication/views.py:129
 msgid "communications"
 msgstr "pranešimai"
 
-#: communication/models.py:61
+#: communication/models.py:72
 msgid "title"
 msgstr "pavadinimas"
 
-#: communication/models.py:62
+#: communication/models.py:73
 msgid "note"
 msgstr "raštelis"
 
-#: communication/models.py:83
+#: communication/models.py:74
+msgid "image"
+msgstr "paveiksliukas"
+
+#: communication/models.py:102
+msgid "commented by"
+msgstr "pakomentavo"
+
+#: communication/models.py:107
 msgid "comment"
-msgstr "komentavimas"
+msgstr "komentaras"
 
-#: communication/models.py:84
+#: communication/models.py:108
+#: communication/templates/communication/communication_detail.html:49
 msgid "comments"
-msgstr "komentavimai"
+msgstr "komentarai"
 
-#: communication/templates/base.html:16
-#: communication/templates/communication/index.html:3
+#: communication/models.py:124 communication/models.py:149
+#: communication/templates/base.html:21
+msgid "user"
+msgstr "naudotojas"
+
+#: communication/models.py:130
+msgid "blog like"
+msgstr "tinklaraščio patiktukas"
+
+#: communication/models.py:131
+msgid "blog likes"
+msgstr "tinklaraščio patiktukai"
+
+#: communication/models.py:156
+msgid "communication like"
+msgstr "pranešimų patiktukas"
+
+#: communication/models.py:157
+msgid "communication likes"
+msgstr "pranešimų patiktukai"
+
+#: communication/templates/base.html:20
 msgid "home"
 msgstr "pagrindinis"
 
-#: communication/templates/communication/communication_detail.html:6
-#, fuzzy
-#| msgid "created at"
+#: communication/templates/base.html:30
+msgid "admin"
+msgstr "administratorius"
+
+#: communication/templates/base.html:33
+msgid "log out"
+msgstr "atsijungti"
+
+#: communication/templates/base.html:35
+msgid "log in"
+msgstr "prisijungti"
+
+#: communication/templates/base.html:36
+msgid "sign up"
+msgstr "registruotis"
+
+#: communication/templates/base.html:61
+msgid "susipažinkime"
+msgstr "susipažinkime"
+
+#: communication/templates/communication/blog_create.html:2
+msgid "create a blog at"
+msgstr "sukurti tinklaraštį"
+
+#: communication/templates/communication/blog_create.html:4
+msgid "create a blog"
+msgstr "sukurti tinklaraštį"
+
+#: communication/templates/communication/blog_create.html:8
+#: communication/templates/communication/comment_create.html:8
+#: communication/templates/communication/communication_create.html:8
+msgid "create"
+msgstr "sukurta"
+
+#: communication/templates/communication/blog_delete.html:2
+#: communication/templates/communication/commnent_delete.html:2
+#: communication/templates/communication/communication_delete.html:2
+msgid "deleting"
+msgstr "ištrynimas"
+
+#: communication/templates/communication/blog_delete.html:4
+msgid "deleting blog"
+msgstr "ištryninimas tinklaraščio"
+
+#: communication/templates/communication/blog_delete.html:9
+msgid "are you sure you want to delete blog"
+msgstr "ar tu esi tikras, kad nori ištrinti šį tinklaraštį"
+
+#: communication/templates/communication/blog_delete.html:11
+msgid "all blog's"
+msgstr "visi tinklaraščiai"
+
+#: communication/templates/communication/blog_delete.html:12
+#: communication/templates/communication/commnent_delete.html:12
+msgid "communications will be deleted"
+msgstr "pranešimai bus ištrinti"
+
+#: communication/templates/communication/blog_delete.html:15
+#: communication/templates/communication/blog_update.html:8
+#: communication/templates/communication/comment_edit.html:8
+#: communication/templates/communication/commnent_delete.html:15
+#: communication/templates/communication/communication_delete.html:13
+#: communication/templates/communication/communication_update.html:8
+msgid "confirm"
+msgstr "patvirtinti"
+
+#: communication/templates/communication/blog_delete.html:16
+#: communication/templates/communication/commnent_delete.html:16
+#: communication/templates/communication/communication_delete.html:14
+msgid "change mind"
+msgstr "persigalvoti"
+
+#: communication/templates/communication/blog_detail.html:12
+#: communication/templates/communication/communication_detail.html:12
+msgid "no loves yet"
+msgstr "nėra patiktukų"
+
+#: communication/templates/communication/blog_detail.html:16
+#: communication/templates/communication/communication_detail.html:16
+msgid "user loves it"
+msgstr "vartotojui patinka tai"
+
+#: communication/templates/communication/blog_detail.html:18
+#: communication/templates/communication/communication_detail.html:18
+msgid "users love it"
+msgstr "vartotojams patinka tai"
+
+#: communication/templates/communication/blog_detail.html:32
+#: communication/templates/communication/comment_detail.html:9
+#: communication/templates/communication/communication_detail.html:34
+msgid "edit"
+msgstr "redaguoti"
+
+#: communication/templates/communication/blog_detail.html:33
+#: communication/templates/communication/comment_detail.html:10
+#: communication/templates/communication/communication_detail.html:36
+msgid "delete"
+msgstr "ištrinti"
+
+#: communication/templates/communication/blog_detail.html:34
+#: communication/templates/communication/communication_detail.html:39
+msgid "return"
+msgstr "grįžti"
+
+#: communication/templates/communication/blog_detail.html:42
+#: communication/templates/communication/communication_detail.html:52
+msgid "add"
+msgstr "pridėti"
+
+#: communication/templates/communication/blog_detail.html:53
+msgid "No related communications."
+msgstr "Jokių susijusių pranešimų"
+
+#: communication/templates/communication/blog_list.html:6
+#: communication/templates/communication/communication_list.html:6
+msgid "create new"
+msgstr "sukurta"
+
+#: communication/templates/communication/blog_list.html:9
+#: communication/templates/communication/communication_list.html:9
+msgid "filter by owner"
+msgstr "filtruoti pagal savininką"
+
+#: communication/templates/communication/blog_list.html:14
+#: communication/templates/communication/communication_list.html:23
+msgid "search by name"
+msgstr "ieškoti pagal vardą"
+
+#: communication/templates/communication/blog_list.html:25
+msgid "no blogs found"
+msgstr "nerasta tinklaraiščių"
+
+#: communication/templates/communication/blog_update.html:2
+#: communication/templates/communication/comment_edit.html:2
+#: communication/templates/communication/communication_update.html:2
+msgid "editing"
+msgstr "redagavimas"
+
+#: communication/templates/communication/blog_update.html:4
+msgid "editing blog"
+msgstr "redagavimas tinklaraiščio"
+
+#: communication/templates/communication/comment_create.html:2
+msgid "create a comment at"
+msgstr "sukurti komentarą į"
+
+#: communication/templates/communication/comment_create.html:4
+msgid "create a comment"
+msgstr "sukurti komentarą"
+
+#: communication/templates/communication/comment_create.html:10
+#: communication/templates/communication/comment_edit.html:10
+msgid "comment image"
+msgstr "komentaro paveiksliukas"
+
+#: communication/templates/communication/comment_detail.html:2
+msgid "create a detail"
+msgstr "sukurti detalę"
+
+#: communication/templates/communication/comment_detail.html:4
+msgid "comment detail"
+msgstr "komentuoti detalę"
+
+#: communication/templates/communication/comment_detail.html:6
+msgid "created at:"
+msgstr "sukurta"
+
+#: communication/templates/communication/comment_edit.html:4
+msgid "editing comment"
+msgstr "redaguoti komentarą"
+
+#: communication/templates/communication/commnent_delete.html:4
+msgid "deleting comment"
+msgstr "ištrinti komentarą"
+
+#: communication/templates/communication/commnent_delete.html:9
+msgid "are you sure you want to delete comment"
+msgstr "ar tikrai norite ištrinti komentarą"
+
+#: communication/templates/communication/commnent_delete.html:11
+msgid "all comment's"
+msgstr "visus komentaro"
+
+#: communication/templates/communication/communication_create.html:2
+msgid "create a communication at"
+msgstr "sukurti pranešimą į"
+
+#: communication/templates/communication/communication_create.html:4
+msgid "create a communication"
+msgstr "sukurti pranešimą"
+
+#: communication/templates/communication/communication_delete.html:4
+msgid "deleting communication"
+msgstr "ištrinti pranešimą"
+
+#: communication/templates/communication/communication_delete.html:9
+msgid "are you sure you want to delete communication"
+msgstr "ar tikrai norite ištrinti pranešimą"
+
+#: communication/templates/communication/communication_detail.html:42
 msgid "created"
 msgstr "sukurta"
 
-#: communication/templates/communication/communication_detail.html:8
-#, fuzzy
-#| msgid "updated at"
+#: communication/templates/communication/communication_detail.html:44
 msgid "updated"
 msgstr "atnaujinta"
+
+#: communication/templates/communication/communication_detail.html:57
+msgid "no comments yet..."
+msgstr "nėra komentarų dar"
+
+#: communication/templates/communication/communication_detail.html:62
+msgid "profile picture"
+msgstr "profilio nuotrauka"
+
+#: communication/templates/communication/communication_detail.html:64
+msgid "no profile picture"
+msgstr "nėra profilio nuotraukos"
 
 #: communication/templates/communication/communication_list.html:2
 msgid "list"
 msgstr "sąrašas"
 
 #: communication/templates/communication/communication_list.html:4
-#, fuzzy
-#| msgid "communication"
 msgid "communication topic"
-msgstr "pranešimas"
+msgstr "pranešimo tema"
 
-#: communication/templates/communication/communication_list.html:11
-#, fuzzy
-#| msgid "communication"
+#: communication/templates/communication/communication_list.html:18
+msgid "filter by blog name"
+msgstr "filtruoti pagal tinklaraščio pavadinimą"
+
+#: communication/templates/communication/communication_list.html:39
 msgid "no communication found"
-msgstr "pranešimas"
+msgstr "nėra pranešimų"
 
-#: communication/templates/communication/index.html:21
+#: communication/templates/communication/communication_list.html:45
+msgid "thanks and good day"
+msgstr "ačiū ir geros dienos"
+
+#: communication/templates/communication/communication_update.html:4
+msgid "editing communication"
+msgstr "redagavimas pranešimų"
+
+#: communication/templates/communication/index.html:3
+msgid "about us"
+msgstr "apie mus"
+
+#: communication/templates/communication/index.html:13
+msgid "how we grow"
+msgstr "kaip užsaugome"
+
+#: communication/templates/communication/index.html:32
+msgid "your activity"
+msgstr "tavo veikla"
+
+#: communication/templates/communication/index.html:40
 msgid "login required"
 msgstr "prašome prisijungti"
 
-#: communication/templates/communication/index.html:22
+#: communication/templates/communication/index.html:41
 msgid "nothing here"
 msgstr "tuščia"
+
+#: communication/views.py:52
+msgid "blog created successfully"
+msgstr "tinklaraštis sukurtas sėkmingai"
+
+#: communication/views.py:79
+msgid "blog updated successfully"
+msgstr "tinklraštis atnaujintas sėkmingai"
+
+#: communication/views.py:98
+msgid "blog deleted successfully"
+msgstr "tinklraštis ištrintas sėkmingai"
+
+
+#: communication/views.py:108
+msgid "users"
+msgstr "naudotojai"
+
+#: communication/views.py:181
+msgid "communication created successfully"
+msgstr "pranešimas sukurtas sėkmingai"
+
+#: communication/views.py:191
+msgid "Blog not found"
+msgstr "tinklaraštis nerastas"
+
+#: communication/views.py:207
+msgid "communication edited successfully"
+msgstr "pranešimas redaguotas sėkmingai"
+
+#: communication/views.py:222
+msgid "communication deleted successfully"
+msgstr "pranešimas ištrintas sėkmingai"
+
+#: communication/views.py:259
+msgid "comment created successfully"
+msgstr "komentaras sukurtas sėkmingai"
+
+#: communication/views.py:269
+msgid "Communication not found"
+msgstr "pranešimų nerasta"
+
+#: communication/views.py:307
+msgid "comment edited successfully"
+msgstr "komentaras redaguotas sėkmingai"
+
+#: communication/views.py:322
+msgid "Comment deleted successfully"
+msgstr "komentaras ištrintas sėkmingai"

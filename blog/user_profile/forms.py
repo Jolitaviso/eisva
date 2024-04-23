@@ -6,6 +6,7 @@ from . import models
 from tinymce.models import HTMLField
 from django.utils.translation import gettext_lazy as _
 
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = get_user_model()
@@ -28,6 +29,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         fields = ("picture", "description")
+
 
 class MessageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

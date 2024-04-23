@@ -1,0 +1,395 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-23 12:15+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+#: user_profile/admin.py:19
+msgid "general"
+msgstr "bendras"
+
+#: user_profile/admin.py:28
+msgid "temporal tracking"
+msgstr "laikinas sekimas"
+
+#: user_profile/apps.py:8
+msgid "user profile"
+msgstr "vartotojo profilis"
+
+#: user_profile/models.py:11
+#: user_profile/templates/user_profile/user_detail.html:4
+#: user_profile/templates/user_profile/user_detail_current.html:4
+msgid "user"
+msgstr "vartotojas"
+
+#: user_profile/models.py:12
+msgid "description"
+msgstr "aprašymas"
+
+#: user_profile/models.py:13
+msgid "picture"
+msgstr "nuotrauka"
+
+#: user_profile/models.py:16
+#: user_profile/templates/user_profile/user_update.html:4
+msgid "profile"
+msgstr "profilis"
+
+#: user_profile/models.py:17
+msgid "profiles"
+msgstr "profiliai"
+
+#: user_profile/models.py:35
+msgid "text"
+msgstr "tekstas"
+
+#: user_profile/models.py:36
+msgid "image"
+msgstr "nuotrauka"
+
+#: user_profile/models.py:37
+msgid "document"
+msgstr "dokumentas"
+
+#: user_profile/models.py:41
+msgid "sender"
+msgstr "siuntėjas"
+
+#: user_profile/models.py:43
+msgid "sent_messages"
+msgstr "siųsti žinutę"
+
+#: user_profile/models.py:48
+msgid "receiver"
+msgstr "gavėjas"
+
+#: user_profile/models.py:49
+msgid "received_messages"
+msgstr "gautos žinutės"
+
+#: user_profile/models.py:53
+msgid "message"
+msgstr "žinutė"
+
+#: user_profile/models.py:54
+msgid "messages"
+msgstr "žinutės"
+
+#: user_profile/models.py:60
+msgid "sent by"
+msgstr "atsiuntė"
+
+#: user_profile/templates/registration/logged_out.html:2
+#: user_profile/templates/registration/logged_out.html:4
+msgid "See you later at"
+msgstr "Iki pasimatymo"
+
+#: user_profile/templates/registration/logged_out.html:5
+msgid "You are always welcome back"
+msgstr "Visada laukiamas sugrįžtant"
+
+#: user_profile/templates/registration/logged_out.html:6
+#: user_profile/templates/registration/login.html:14
+#: user_profile/templates/registration/password_reset_complete.html:5
+msgid "log in"
+msgstr "prisijungti"
+
+#: user_profile/templates/registration/logged_out.html:6
+msgid "again"
+msgstr "dar kartą"
+
+#: user_profile/templates/registration/login.html:2
+#: user_profile/templates/registration/login.html:4
+msgid "log in to"
+msgstr "prisijungti prie"
+
+#: user_profile/templates/registration/login.html:6
+msgid "Log in error. Please try again."
+msgstr "Prisijungimo klaida. Prašau, pabandykite dar kartą."
+
+#: user_profile/templates/registration/login.html:16
+msgid "forgot password?"
+msgstr "pamiršai slaptažodį?"
+
+#: user_profile/templates/registration/login.html:17
+msgid "If you do not have an account, please"
+msgstr "Jeigu neturite paskyros, prašau"
+
+#: user_profile/templates/registration/login.html:17
+msgid "sign up"
+msgstr "prisijungti"
+
+#: user_profile/templates/registration/password_reset_complete.html:2
+msgid "password changed"
+msgstr "slaptažodis pakeistas"
+
+#: user_profile/templates/registration/password_reset_complete.html:4
+msgid "Password has been changed successfully"
+msgstr "Slaptažodis sėkmingai pakeistas"
+
+#: user_profile/templates/registration/password_reset_complete.html:5
+msgid "You can now"
+msgstr "Dabar galite"
+
+#: user_profile/templates/registration/password_reset_complete.html:5
+msgid "with your new password"
+msgstr "su nauju slaptažodžiu"
+
+#: user_profile/templates/registration/password_reset_confirm.html:2
+#: user_profile/templates/registration/password_reset_confirm.html:4
+#: user_profile/templates/registration/password_reset_confirm.html:9
+msgid "reset password"
+msgstr "atstatyti slaptažodį"
+
+#: user_profile/templates/registration/password_reset_confirm.html:12
+msgid "Password Reset Failed: the link has expired and is no longer valid."
+msgstr "Nepavyko atkurti slaptažodžio: nuoroda pasibaigė ir nebegalioja."
+
+#: user_profile/templates/registration/password_reset_done.html:2
+#: user_profile/templates/registration/password_reset_form.html:2
+#: user_profile/templates/registration/password_reset_form.html:4
+msgid "password reset"
+msgstr "slaptažodžio nustatymas iš naujo"
+
+#: user_profile/templates/registration/password_reset_done.html:4
+msgid "please check your email"
+msgstr "prašau, patikrink savo el. paštą"
+
+#: user_profile/templates/registration/password_reset_done.html:5
+msgid "We have sent further instructions to your email."
+msgstr "Tolesnes instrukcijas išsiuntėme jūsų el. paštu"
+
+#: user_profile/templates/registration/password_reset_email.html:1
+msgid ""
+"Hello,\n"
+"\n"
+"Someone has requested the password change at Eisva. If it was not you, "
+"please ignore this email.\n"
+"\n"
+"You can change your password by following this link:"
+msgstr "Sveiki,\n"
+"\n"
+"Kažkas paprašė pakeisti slaptažodį Eisvoje. Jei tai ne jūs, "
+"prašome ignoruoti šį el. laišką.\n"
+"\n"
+"Galite pakeisti slaptažodį spustelėję šią nuorodą:"
+
+#: user_profile/templates/registration/password_reset_email.html:8
+msgid ""
+"Best regards,\n"
+"Eisva mudu abudu Team"
+msgstr "Pagarbiai,\n"
+"Eisva mudu abudu komanda"
+
+#: user_profile/templates/registration/password_reset_form.html:8
+#: user_profile/templates/user_profile/user_update.html:9
+msgid "confirm"
+msgstr "patvirtinti"
+
+#: user_profile/templates/user_profile/message_create.html:2
+msgid "create a message at"
+msgstr "žinutė sukurta"
+
+#: user_profile/templates/user_profile/message_create.html:4
+msgid "create a message"
+msgstr "sukurti žinutę"
+
+#: user_profile/templates/user_profile/message_create.html:8
+msgid "create new message"
+msgstr "sukurti naują žinutę"
+
+#: user_profile/templates/user_profile/message_list_received.html:4
+#: user_profile/templates/user_profile/message_list_received.html:7
+msgid "received messages"
+msgstr "gautos žinutės"
+
+#: user_profile/templates/user_profile/message_list_received.html:8
+#: user_profile/templates/user_profile/message_list_sent.html:5
+msgid "create a new message"
+msgstr "sukurti naują žinutę"
+
+#: user_profile/templates/user_profile/message_list_received.html:11
+#: user_profile/templates/user_profile/message_list_sent.html:8
+msgid "search by: "
+msgstr "ieškoti pagal: "
+
+#: user_profile/templates/user_profile/message_list_received.html:13
+#: user_profile/templates/user_profile/message_list_sent.html:10
+msgid "username"
+msgstr "vartotojo vardas"
+
+#: user_profile/templates/user_profile/message_list_received.html:24
+msgid "no matches found."
+msgstr "atitikmenų nerasta"
+
+#: user_profile/templates/user_profile/message_list_received.html:32
+#: user_profile/templates/user_profile/user_detail.html:7
+#: user_profile/templates/user_profile/user_detail_current.html:7
+#: user_profile/templates/user_profile/user_list.html:10
+msgid "profile picture"
+msgstr "profilio nuotrauka"
+
+#: user_profile/templates/user_profile/message_list_received.html:34
+#: user_profile/templates/user_profile/message_list_sent.html:33
+#: user_profile/templates/user_profile/user_detail_current.html:9
+#: user_profile/templates/user_profile/user_list.html:12
+msgid "no profile picture"
+msgstr "nėra profilio nuotraukos"
+
+#: user_profile/templates/user_profile/message_list_received.html:43
+#: user_profile/templates/user_profile/message_list_sent.html:44
+msgid "message image"
+msgstr "žinutės paveikslėlis"
+
+#: user_profile/templates/user_profile/message_list_sent.html:2
+msgid "list"
+msgstr "sąrašas"
+
+#: user_profile/templates/user_profile/message_list_sent.html:4
+msgid "sent messages"
+msgstr "išsiųstos žinutės"
+
+#: user_profile/templates/user_profile/message_list_sent.html:21
+msgid "No matches found."
+msgstr "atitikmenų nerasta"
+
+#: user_profile/templates/user_profile/message_list_sent.html:28
+msgid "to: "
+msgstr "kam"
+
+#: user_profile/templates/user_profile/message_list_sent.html:31
+msgid "Profile Picture"
+msgstr "Profilio nuotrauka"
+
+#: user_profile/templates/user_profile/signup.html:2
+#: user_profile/templates/user_profile/signup.html:4
+msgid "signup for"
+msgstr "signup for"
+
+#: user_profile/templates/user_profile/signup.html:8
+msgid "register account"
+msgstr "užregistruoti paskyrą"
+
+#: user_profile/templates/user_profile/user_blogs.html:4
+msgid "user's blogs"
+msgstr "naudotojo tinklaraiščiai"
+
+#: user_profile/templates/user_profile/user_blogs.html:12
+msgid "this user has no blogs yet."
+msgstr "šis vartotojas dar neturi tinklaraščių"
+
+#: user_profile/templates/user_profile/user_detail.html:2
+#: user_profile/templates/user_profile/user_detail_current.html:2
+msgid "at"
+msgstr ""
+
+#: user_profile/templates/user_profile/user_detail.html:17
+msgid "edit profile data"
+msgstr "redaguoti profilio duomenis"
+
+#: user_profile/templates/user_profile/user_detail.html:18
+#: user_profile/templates/user_profile/user_detail_current.html:16
+msgid "e-mail"
+msgstr "el. paštas"
+
+#: user_profile/templates/user_profile/user_detail_current.html:20
+msgid "edit profile"
+msgstr "redaguoti profilį"
+
+#: user_profile/templates/user_profile/user_detail_current.html:27
+msgid "message: "
+msgstr "žinutė: "
+
+#: user_profile/templates/user_profile/user_detail_current.html:28
+msgid "new message "
+msgstr "nauja žinutė "
+
+#: user_profile/templates/user_profile/user_detail_current.html:29
+msgid "inbox "
+msgstr "pašto dėžutė"
+
+#: user_profile/templates/user_profile/user_detail_current.html:30
+msgid "sent "
+msgstr "išsiųsta"
+
+#: user_profile/templates/user_profile/user_detail_current.html:35
+#: user_profile/templates/user_profile/user_detail_current.html:115
+msgid "new message"
+msgstr "nauja žinutė"
+
+#: user_profile/templates/user_profile/user_detail_current.html:38
+msgid "view all user's blogs"
+msgstr "peržiūrėti visus naudotojo tinklaraščius"
+
+#: user_profile/templates/user_profile/user_detail_current.html:42
+msgid "no blog yet..."
+msgstr "dar nėra tinklaraščių"
+
+#: user_profile/templates/user_profile/user_detail_current.html:50
+#: user_profile/templates/user_profile/user_detail_current.html:66
+msgid "blog name"
+msgstr "tinklaraščio pavadinimas"
+
+#: user_profile/templates/user_profile/user_detail_current.html:59
+msgid "View all user's blogs"
+msgstr "Visi naudotojo tinklaraščiai"
+
+#: user_profile/templates/user_profile/user_detail_current.html:107
+msgid "Send Message"
+msgstr "Siųsti žinutę"
+
+#: user_profile/templates/user_profile/user_detail_current.html:109
+msgid "Write your message here..."
+msgstr "Rašyk savo žinutę čia.."
+
+#: user_profile/templates/user_profile/user_detail_current.html:110
+msgid "Send"
+msgstr "Siųsti"
+
+#: user_profile/templates/user_profile/user_list.html:4
+msgid "user List"
+msgstr "naudotojų sąrašas"
+
+#: user_profile/templates/user_profile/user_list.html:17
+msgid "create message"
+msgstr "sukurti žinutę"
+
+#: user_profile/templates/user_profile/user_list.html:20
+msgid "no users found."
+msgstr "nerasta naudotojų"
+
+#: user_profile/templates/user_profile/user_update.html:2
+#: user_profile/templates/user_profile/user_update.html:4
+msgid "editing"
+msgstr "redagavimas"
+
+#: user_profile/templates/user_profile/user_update.html:2
+msgid "profile at"
+msgstr "profilis "
+
+#: user_profile/views.py:24
+msgid "Thank you! You can log in now with your credentials."
+msgstr "Ačiū! Dabar galite prisijungti naudodami savo kredencialus."
+
+#: user_profile/views.py:50
+msgid "Profile edited successfully"
+msgstr "Profilis redaguotas sėkmingai"
+
+#: user_profile/views.py:71
+msgid "message created successfully"
+msgstr "žinutė sukurta sėkmingai"

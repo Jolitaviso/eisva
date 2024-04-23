@@ -48,9 +48,10 @@
 <div>
     <h2>{% trans "comments"|capfirst %}</h2>
     <div class="toolbar">
-        <a class="button" href="{% url 'comment_create' %}?communication={{ communication.name }}">
+        <a  style="margin: 2rem 2rem 2rem calc(2rem - 2px);" class="button" href="{% url 'comment_create' %}?communication={{ communication.name }}">
             {% trans "add"|capfirst %}
-        </a>
+        </a><br>
+        <br>
     <div class="comment-room">
         {% if not communication.comments.all %}
             <p>{% trans "no comments yet..."|capfirst %}</p>

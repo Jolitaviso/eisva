@@ -29,6 +29,7 @@ class Profile(models.Model):
             if image.size[0] > 400 or image.size[1] > 300:
                 image.resize((400, 300))
                 image.save(self.picture.path)
+  
                     
 class Message(models.Model):
     text = models.TextField(_("text"), blank=True, max_length=10000)

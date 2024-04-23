@@ -81,9 +81,11 @@ class CommentAdmin(admin.ModelAdmin):
             ),
         }),
     )
+   
     
 class BlogLikeAdmin(admin.ModelAdmin):
     list_display = ['blog', 'user', 'like']
+   
     
 class CommunicationLikeAdmin(admin.ModelAdmin):
     list_display = ['communication', 'user', 'like']    

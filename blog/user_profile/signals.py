@@ -3,7 +3,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from . import models
 
-
 @receiver(post_save, sender=get_user_model())
 def sync_user_profile(sender, instance, created, **kwargs):
     if created or not hasattr(instance, 'profile'):
